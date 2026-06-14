@@ -1,0 +1,554 @@
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --cream:#FDF6EC;
+  --cream2:#FAF0E0;
+  --rust:#C0572A;
+  --amber:#D4822A;
+  --gold:#E8A832;
+  --ochre:#B8761A;
+  --terracotta:#C96840;
+  --sienna:#8B3A1A;
+  --brown:#5C2E0E;
+  --forest:#3D5A2A;
+  --sage:#6B8C55;
+  --teal-sea:#1A7A7A;
+  --sea-blue:#2B6FA8;
+  --sand:#E8D5A0;
+  --peach:#F2C49B;
+  --blush:#E8A87C;
+  --text-dark:#3A1A06;
+  --text-mid:#7A4215;
+  --text-light:#B8895A;
+  --border:rgba(160,80,20,0.18);
+}
+body { font-family:var(--font-sans); background:var(--cream); color:var(--text-dark); }
+
+nav {
+  background:var(--brown);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 1.5rem; height:58px; border-bottom:2px solid var(--amber);
+}
+.logo { display:flex; align-items:center; gap:8px; color:var(--gold); font-size:14px; font-weight:500; }
+.logo i { font-size:20px; color:var(--peach); }
+.nav-links { display:flex; gap:2px; }
+.nl { background:none; border:none; cursor:pointer; color:rgba(232,168,50,0.7);
+  font-size:12px; padding:6px 12px; border-radius:16px; transition:all .2s;
+  font-family:var(--font-sans); letter-spacing:.04em; }
+.nl:hover,.nl.active { background:rgba(232,168,50,0.18); color:var(--gold); }
+
+.page { display:none; }
+.page.active { display:block; }
+
+/* ===== HERO SECTION ===== */
+.hero-wrap { position:relative; overflow:hidden; }
+.hero-img {
+  width:100%; height:340px; object-fit:cover; object-position:center;
+  display:block;
+}
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to bottom, rgba(60,20,5,.35) 0%, rgba(60,20,5,.7) 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:1.5rem;
+}
+.hero-badge {
+  background:rgba(232,168,50,0.22); border:1px solid rgba(232,168,50,0.5);
+  color:var(--gold); font-size:11px; letter-spacing:.1em; padding:4px 14px;
+  border-radius:20px; margin-bottom:14px; text-transform:uppercase;
+}
+.hero h1 { font-size:32px; font-weight:500; color:#FFF8EC; line-height:1.2; margin-bottom:6px; }
+.hero-sub { font-size:14px; color:rgba(245,220,170,.75); margin-bottom:18px; font-style:italic; }
+.hero-icons-row { display:flex; gap:16px; justify-content:center; margin-bottom:18px; }
+.hi { display:flex; flex-direction:column; align-items:center; gap:5px; }
+.hi-circle {
+  width:46px; height:46px; border-radius:50%;
+  border:1.5px solid rgba(232,168,50,.45);
+  background:rgba(232,168,50,.12);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--gold); font-size:20px;
+}
+.hi-lbl { font-size:10px; color:rgba(245,220,170,.65); letter-spacing:.05em; }
+.btn-shine {
+  display:inline-block; position:relative; overflow:hidden;
+  background:var(--amber); border:none; cursor:pointer;
+  color:var(--cream); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  padding:11px 26px; border-radius:28px; font-family:var(--font-sans); transition:all .3s;
+}
+.btn-shine::after {
+  content:''; position:absolute; top:0; left:-120%; width:60%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+  animation:shine 2.8s ease-in-out infinite 0.8s;
+}
+@keyframes shine { 0%{left:-120%} 100%{left:220%} }
+.btn-shine:hover { background:var(--terracotta); transform:scale(1.04); }
+.btn-out {
+  display:inline-block; background:none;
+  border:1.5px solid rgba(232,168,50,.5); cursor:pointer;
+  color:var(--gold); font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  padding:10px 22px; border-radius:28px; font-family:var(--font-sans); transition:all .2s;
+}
+.btn-out:hover { border-color:var(--gold); background:rgba(232,168,50,.12); }
+
+/* ===== COLOR BANDS ===== */
+.band-amber { background:var(--amber); padding:2rem 1.5rem; }
+.band-rust { background:var(--rust); padding:2rem 1.5rem; }
+.band-brown { background:var(--brown); padding:2rem 1.5rem; }
+.band-sand { background:var(--sand); padding:2rem 1.5rem; }
+.band-cream { background:var(--cream2); padding:2rem 1.5rem; }
+.band-sienna { background:var(--sienna); padding:2rem 1.5rem; }
+.band-terracotta { background:var(--terracotta); padding:2rem 1.5rem; }
+.band-forest { background:var(--forest); padding:2rem 1.5rem; }
+
+/* ===== PHOTO GRID ===== */
+.photo-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+.photo-item { position:relative; overflow:hidden; }
+.photo-item img { width:100%; height:180px; object-fit:cover; display:block; }
+.photo-item.wide { grid-column:span 2; }
+.photo-item.wide img { height:220px; }
+.photo-caption {
+  position:absolute; bottom:0; left:0; right:0;
+  background:linear-gradient(transparent, rgba(40,12,2,.75));
+  color:rgba(255,240,210,.9); font-size:12px; padding:18px 10px 8px;
+}
+
+/* ===== SECTION ===== */
+.sec { padding:2rem 1.5rem; max-width:680px; margin:0 auto; }
+.sec-title { font-size:20px; font-weight:500; display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.sec-title i { font-size:18px; }
+.sec-sub { font-size:13px; margin-bottom:1.5rem; }
+.divider { height:1.5px; margin:6px 0 1.5rem; border-radius:2px; }
+
+/* ===== FEATURE CARDS ===== */
+.feat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; }
+.feat-card {
+  border-radius:12px; padding:1.1rem 1rem; text-align:center; border:1.5px solid;
+}
+.feat-icon { font-size:26px; margin-bottom:8px; }
+.feat-name { font-size:13px; font-weight:500; margin-bottom:4px; }
+.feat-desc { font-size:12px; line-height:1.5; }
+
+/* theme variants */
+.fc-amber { background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.3); color:#FFF8EC; }
+.fc-sand { background:#fff; border-color:rgba(160,80,20,.15); color:var(--text-dark); }
+.fc-sand .feat-icon { color:var(--amber); }
+.fc-sand .feat-name { color:var(--brown); }
+.fc-sand .feat-desc { color:var(--text-mid); }
+.fc-dark { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.2); color:#FFF8EC; }
+
+/* ===== REVIEW CARDS ===== */
+.rev-card {
+  background:#fff; border:1px solid var(--border);
+  border-radius:12px; padding:1.2rem; margin-bottom:10px;
+}
+.rev-head { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.rev-av {
+  width:36px; height:36px; border-radius:50%; background:var(--sienna);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--peach); font-size:12px; font-weight:500; flex-shrink:0;
+}
+.rev-name { font-size:13px; font-weight:500; color:var(--brown); }
+.rev-date { font-size:11px; color:var(--text-light); }
+.stars { color:var(--gold); font-size:13px; letter-spacing:1px; margin-bottom:6px; }
+.rev-text { font-size:13px; color:var(--text-mid); line-height:1.65; }
+.rev-tags { display:flex; gap:5px; flex-wrap:wrap; margin-top:8px; }
+.rtag { font-size:11px; padding:3px 9px; border-radius:16px; background:rgba(212,130,42,.1); color:var(--ochre); }
+
+/* ===== INFO ROWS ===== */
+.info-row {
+  display:flex; align-items:flex-start; gap:12px;
+  background:#fff; border:1px solid var(--border);
+  border-radius:10px; padding:.85rem 1rem; margin-bottom:9px;
+}
+.ir-icon { font-size:18px; color:var(--amber); flex-shrink:0; margin-top:2px; }
+.ir-lbl { font-size:11px; color:var(--text-light); letter-spacing:.04em; margin-bottom:2px; text-transform:uppercase; }
+.ir-val { font-size:14px; font-weight:500; color:var(--brown); }
+
+/* ===== HOURS ===== */
+.h-row { display:flex; justify-content:space-between; padding:5px 0; font-size:13px; border-bottom:.5px solid var(--border); }
+.h-row:last-child { border:none; }
+.h-day { color:var(--text-mid); }
+.h-time { color:var(--brown); font-weight:500; }
+.h-closed { color:#b03020; }
+
+/* ===== ABOUT ===== */
+.about-band {
+  background:var(--sienna); padding:2.5rem 1.5rem; text-align:center;
+}
+.about-icon-row { display:flex; justify-content:center; gap:1rem; margin-bottom:1.25rem; }
+.ab-icon { font-size:30px; color:var(--peach); }
+
+/* scroll hint */
+.scroll-hint {
+  background:rgba(212,130,42,.12); border:1px solid rgba(212,130,42,.25);
+  border-radius:10px; padding:.7rem 1rem;
+  display:flex; align-items:center; gap:8px;
+  font-size:13px; color:var(--text-mid);
+  animation:pulse 3s ease-in-out infinite;
+  margin-bottom:1rem;
+}
+@keyframes pulse { 0%,100%{opacity:.7} 50%{opacity:1} }
+.scroll-hint i { color:var(--amber); }
+
+/* two-col */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.flag-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+  color:#FFF8EC; font-size:12px; padding:5px 14px; border-radius:20px; margin-bottom:12px;
+}
+</style>
+
+<h2 class="sr-only">Heart of Styria — Austrian Bakery &amp; Restaurant website, Hurghada</h2>
+
+<nav>
+  <div class="logo">
+    <i class="ti ti-bread" aria-hidden="true"></i>
+    Heart of Styria
+  </div>
+  <div class="nav-links">
+    <button class="nl active" onclick="go('home')">Home</button>
+    <button class="nl" onclick="go('gallery')">Gallery</button>
+    <button class="nl" onclick="go('reviews')">Reviews</button>
+    <button class="nl" onclick="go('visit')">Visit</button>
+    <button class="nl" onclick="go('about')">About</button>
+  </div>
+</nav>
+
+<!-- ========= HOME ========= -->
+<div class="page active" id="page-home">
+
+  <div class="hero-wrap hero">
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&auto=format&fit=crop"
+      alt="Freshly baked bread and pastries" />
+    <div class="hero-overlay">
+      <div class="flag-badge">🇦🇹 Austrian Bakery &amp; Restaurant — Hurghada</div>
+      <h1>Heart of Styria</h1>
+      <p class="hero-sub">Warm Austrian soul on the Red Sea coast</p>
+      <div class="hero-icons-row">
+        <div class="hi"><div class="hi-circle"><i class="ti ti-bread" aria-hidden="true"></i></div><span class="hi-lbl">Bakery</span></div>
+        <div class="hi"><div class="hi-circle"><i class="ti ti-coffee" aria-hidden="true"></i></div><span class="hi-lbl">Coffee</span></div>
+        <div class="hi"><div class="hi-circle"><i class="ti ti-cake" aria-hidden="true"></i></div><span class="hi-lbl">Pastries</span></div>
+        <div class="hi"><div class="hi-circle"><i class="ti ti-tools-kitchen-2" aria-hidden="true"></i></div><span class="hi-lbl">Kitchen</span></div>
+        <div class="hi"><div class="hi-circle"><i class="ti ti-meat" aria-hidden="true"></i></div><span class="hi-lbl">Kebab</span></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn-shine" onclick="go('gallery')">Explore Gallery</button>
+        <button class="btn-out" onclick="go('visit')">Find Us</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="band-amber">
+    <div class="scroll-hint" style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35);color:#FFF8EC;">
+      <i class="ti ti-clock" aria-hidden="true" style="color:#FFF8EC;"></i>
+      Open Sat–Thu · 09:00–23:00 &nbsp;|&nbsp; Closed Fridays
+    </div>
+    <div class="feat-grid">
+      <div class="feat-card fc-amber">
+        <div class="feat-icon"><i class="ti ti-bread" aria-hidden="true"></i></div>
+        <div class="feat-name">Fresh daily baking</div>
+        <div class="feat-desc">Austrian pastries made every morning</div>
+      </div>
+      <div class="feat-card fc-amber">
+        <div class="feat-icon"><i class="ti ti-heart" aria-hidden="true"></i></div>
+        <div class="feat-name">Made with love</div>
+        <div class="feat-desc">Genuine hospitality in every detail</div>
+      </div>
+      <div class="feat-card fc-amber">
+        <div class="feat-icon"><i class="ti ti-coin" aria-hidden="true"></i></div>
+        <div class="feat-name">Fair prices</div>
+        <div class="feat-desc">Outstanding quality, honest value</div>
+      </div>
+      <div class="feat-card fc-amber">
+        <div class="feat-icon"><i class="ti ti-wheelchair" aria-hidden="true"></i></div>
+        <div class="feat-name">Fully accessible</div>
+        <div class="feat-desc">Wheelchair friendly — all welcome</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band-sand">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <p style="font-size:20px;font-weight:500;color:var(--brown);margin-bottom:4px;">Two worlds, one kitchen</p>
+      <p style="font-size:13px;color:var(--text-mid);">The mountains of Styria meet the Red Sea</p>
+    </div>
+    <div class="two-col" style="gap:8px;">
+      <div style="border-radius:12px;overflow:hidden;position:relative;">
+        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&auto=format&fit=crop"
+          alt="Austrian Alpine forest" style="width:100%;height:160px;object-fit:cover;display:block;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(30,50,10,.75));color:rgba(220,255,200,.9);font-size:12px;padding:16px 10px 8px;text-align:center;">
+          <i class="ti ti-trees" aria-hidden="true" style="margin-right:4px;"></i>Styrian highlands
+        </div>
+      </div>
+      <div style="border-radius:12px;overflow:hidden;position:relative;">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&auto=format&fit=crop"
+          alt="Hurghada Red Sea coast" style="width:100%;height:160px;object-fit:cover;display:block;" />
+        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,40,70,.75));color:rgba(180,230,255,.9);font-size:12px;padding:16px 10px 8px;text-align:center;">
+          <i class="ti ti-waves" aria-hidden="true" style="margin-right:4px;"></i>Red Sea, Hurghada
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band-rust">
+    <div style="text-align:center;margin-bottom:1.25rem;">
+      <p style="font-size:18px;font-weight:500;color:#FFF0E0;margin-bottom:4px;">What our guests say</p>
+      <p style="font-size:13px;color:rgba(255,230,190,.65);">5-star rated on Google</p>
+    </div>
+    <div style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:1.2rem;color:#FFF0E0;">
+      <div style="color:var(--gold);font-size:16px;letter-spacing:2px;margin-bottom:8px;">★★★★★</div>
+      <p style="font-size:13px;line-height:1.65;margin-bottom:10px;color:rgba(255,240,210,.9);">
+        "A true hidden gem in Hurghada — absolute recommendation! From lovingly prepared breakfast to original Austrian-Styrian pastries, right through to a main menu that simply delights. Value for money is outstanding and almost unique in the area."
+      </p>
+      <p style="font-size:12px;color:rgba(255,220,170,.65);">— Daniela &amp; Siggi, La Familia World</p>
+    </div>
+    <div style="text-align:center;margin-top:1.25rem;">
+      <button class="btn-shine" onclick="go('reviews')">Read All Reviews</button>
+    </div>
+  </div>
+
+  <div class="band-brown" style="text-align:center;">
+    <i class="ti ti-map-pin" style="font-size:28px;color:var(--peach);margin-bottom:8px;display:block;" aria-hidden="true"></i>
+    <p style="color:var(--gold);font-size:15px;font-weight:500;margin-bottom:4px;">Metro Street, Touristic Villages</p>
+    <p style="color:rgba(232,168,50,.55);font-size:13px;margin-bottom:1.25rem;">Hurghada, Red Sea Governorate</p>
+    <button class="btn-shine" onclick="go('visit')">Get Directions</button>
+  </div>
+</div>
+
+<!-- ========= GALLERY ========= -->
+<div class="page" id="page-gallery">
+
+  <div class="band-sienna" style="text-align:center;padding:1.75rem 1.5rem 1.5rem;">
+    <p style="font-size:20px;font-weight:500;color:#FFF0E0;margin-bottom:4px;">Gallery</p>
+    <p style="font-size:13px;color:rgba(255,220,170,.6);">Our world — forest roots, sea breeze, warm kitchen</p>
+  </div>
+
+  <div class="photo-grid">
+    <div class="photo-item wide">
+      <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=900&auto=format&fit=crop" alt="Artisan breads and pastries" />
+      <div class="photo-caption"><i class="ti ti-bread" aria-hidden="true" style="margin-right:5px;"></i>Austrian pastries — baked fresh every morning</div>
+    </div>
+    <div class="photo-item">
+      <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=500&auto=format&fit=crop" alt="Green Austrian forest" />
+      <div class="photo-caption"><i class="ti ti-trees" aria-hidden="true" style="margin-right:4px;"></i>Styrian forests</div>
+    </div>
+    <div class="photo-item">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&auto=format&fit=crop" alt="Red Sea Hurghada coast" />
+      <div class="photo-caption"><i class="ti ti-waves" aria-hidden="true" style="margin-right:4px;"></i>Red Sea, Hurghada</div>
+    </div>
+    <div class="photo-item wide">
+      <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=900&auto=format&fit=crop" alt="Bakery croissants and rolls" />
+      <div class="photo-caption"><i class="ti ti-cookie" aria-hidden="true" style="margin-right:4px;"></i>Croissants &amp; golden rolls</div>
+    </div>
+    <div class="photo-item">
+      <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&auto=format&fit=crop" alt="Mountain forest landscape" />
+      <div class="photo-caption"><i class="ti ti-mountain" aria-hidden="true" style="margin-right:4px;"></i>Alpine origins</div>
+    </div>
+    <div class="photo-item">
+      <img src="https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=500&auto=format&fit=crop" alt="Hurghada tropical sea" />
+      <div class="photo-caption"><i class="ti ti-fish" aria-hidden="true" style="margin-right:4px;"></i>Hurghada waters</div>
+    </div>
+    <div class="photo-item wide">
+      <img src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=900&auto=format&fit=crop" alt="Coffee and cake" />
+      <div class="photo-caption"><i class="ti ti-coffee" aria-hidden="true" style="margin-right:4px;"></i>Coffee &amp; Styrian cake — the perfect pair</div>
+    </div>
+  </div>
+
+  <div class="band-forest" style="text-align:center;">
+    <i class="ti ti-trees" style="font-size:26px;color:#A8D878;margin-bottom:8px;display:block;" aria-hidden="true"></i>
+    <p style="color:#D0F0A0;font-size:15px;font-weight:500;margin-bottom:4px;">From the heart of Styria's green mountains</p>
+    <p style="color:rgba(180,230,130,.55);font-size:13px;margin-bottom:1.25rem;">…to your table in Hurghada</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button class="btn-shine" onclick="go('visit')">Visit Us</button>
+      <button class="btn-out" style="border-color:rgba(180,230,130,.45);color:#D0F0A0;" onclick="go('about')">Our Story</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========= REVIEWS ========= -->
+<div class="page" id="page-reviews">
+
+  <div class="band-terracotta" style="text-align:center;padding:1.75rem 1.5rem 1.5rem;">
+    <div style="font-size:22px;color:var(--gold);letter-spacing:3px;margin-bottom:8px;">★★★★★</div>
+    <p style="font-size:20px;font-weight:500;color:#FFF0E0;margin-bottom:4px;">Guest reviews</p>
+    <p style="font-size:13px;color:rgba(255,230,190,.65);">What people are saying</p>
+  </div>
+
+  <div class="sec">
+    <div class="rev-card">
+      <div class="rev-head">
+        <div class="rev-av">DS</div>
+        <div>
+          <div class="rev-name">Daniela &amp; Siggi — La Familia World</div>
+          <div class="rev-date">Recent visit · Google</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text">A true hidden gem in Hurghada — absolute recommendation! From lovingly prepared breakfasts to original Austrian-Styrian pastries and desserts to a main menu that simply delights. The value for money is genuinely outstanding and almost unique in the area. Excellent quality, friendly service, and fair prices, without ever feeling overcharged.</p>
+      <div class="rev-tags">
+        <span class="rtag">Food 5/5</span><span class="rtag">Service 5/5</span><span class="rtag">Ambiance 5/5</span>
+        <span class="rtag">Quiet &amp; cozy</span><span class="rtag">Wheelchair accessible</span><span class="rtag">Free parking</span>
+        <span class="rtag">All group sizes</span><span class="rtag">Vegetarian options</span>
+      </div>
+    </div>
+
+    <div class="rev-card">
+      <div class="rev-head">
+        <div class="rev-av" style="background:var(--ochre);"><i class="ti ti-user" style="font-size:15px;" aria-hidden="true"></i></div>
+        <div>
+          <div class="rev-name">Recent guest</div>
+          <div class="rev-date">2 days ago · Google</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text">Beautiful atmosphere &amp; delicious breakfast. A perfect start to the day.</p>
+      <div class="rev-tags"><span class="rtag">Breakfast</span><span class="rtag">Dine in</span></div>
+    </div>
+
+    <div class="rev-card">
+      <div class="rev-head">
+        <div class="rev-av" style="background:var(--rust);"><i class="ti ti-user" style="font-size:15px;" aria-hidden="true"></i></div>
+        <div>
+          <div class="rev-name">Recent guest</div>
+          <div class="rev-date">1 day ago · Google</div>
+        </div>
+      </div>
+      <div class="stars">★★★★★</div>
+      <p class="rev-text">Wonderful experience. Will definitely be coming back!</p>
+    </div>
+
+    <div style="background:rgba(212,130,42,.1);border:1px solid rgba(212,130,42,.25);border-radius:12px;padding:1.2rem;text-align:center;margin-top:.5rem;">
+      <p style="font-size:13px;color:var(--text-mid);margin-bottom:.75rem;">Share your experience on Google or Facebook</p>
+      <button class="btn-shine" onclick="openLink('https://www.facebook.com/share/p/1KzieJRSiZ/')">Leave a review</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========= VISIT ========= -->
+<div class="page" id="page-visit">
+
+  <div style="position:relative;overflow:hidden;">
+    <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&auto=format&fit=crop"
+      alt="Hurghada Red Sea" style="width:100%;height:220px;object-fit:cover;display:block;" />
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(40,12,2,.25),rgba(40,12,2,.72));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1rem;">
+      <i class="ti ti-map-pin" style="font-size:30px;color:var(--peach);margin-bottom:8px;" aria-hidden="true"></i>
+      <p style="font-size:20px;font-weight:500;color:#FFF8EC;margin-bottom:4px;">Find us in Hurghada</p>
+      <p style="font-size:13px;color:rgba(245,220,170,.7);">Metro Street, Red Sea Governorate</p>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="info-row">
+      <i class="ti ti-map-pin ir-icon" aria-hidden="true"></i>
+      <div>
+        <div class="ir-lbl">Address</div>
+        <div class="ir-val">Metro Street, Touristic Villages</div>
+        <div style="font-size:13px;color:var(--text-mid);">Hurghada 1, Red Sea Governorate 1962737</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <i class="ti ti-phone ir-icon" aria-hidden="true"></i>
+      <div>
+        <div class="ir-lbl">Phone</div>
+        <a href="tel:01038135123" style="font-size:15px;font-weight:500;color:var(--amber);text-decoration:none;">010 3813 5123</a>
+      </div>
+    </div>
+    <div class="info-row">
+      <i class="ti ti-clock ir-icon" aria-hidden="true"></i>
+      <div style="width:100%;">
+        <div class="ir-lbl" style="margin-bottom:8px;">Opening hours</div>
+        <div class="h-row"><span class="h-day">Saturday</span><span class="h-time">09:00 – 23:00</span></div>
+        <div class="h-row"><span class="h-day">Sunday</span><span class="h-time">09:00 – 23:00</span></div>
+        <div class="h-row"><span class="h-day">Monday</span><span class="h-time">09:00 – 23:00</span></div>
+        <div class="h-row"><span class="h-day">Tuesday</span><span class="h-time">09:00 – 23:00</span></div>
+        <div class="h-row"><span class="h-day">Wednesday</span><span class="h-time">09:00 – 23:00</span></div>
+        <div class="h-row"><span class="h-day">Thursday</span><span class="h-time">09:00 – 23:00</span></div>
+        <div class="h-row"><span class="h-day" style="color:#b03020;font-weight:500;">Friday</span><span class="h-closed">Closed</span></div>
+      </div>
+    </div>
+
+    <a href="https://www.facebook.com/share/p/1KzieJRSiZ/" style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;text-decoration:none;color:var(--brown);font-size:14px;font-weight:500;margin-bottom:10px;">
+      <i class="ti ti-brand-facebook" style="font-size:20px;color:#1877F2;" aria-hidden="true"></i>
+      <div><div>Follow us on Facebook</div><div style="font-size:12px;color:var(--text-light);font-weight:400;">Heart of Styria — latest news &amp; updates</div></div>
+      <i class="ti ti-arrow-right" style="margin-left:auto;opacity:.4;" aria-hidden="true"></i>
+    </a>
+
+    <div style="text-align:center;margin-top:1.25rem;">
+      <button class="btn-shine" onclick="openLink('https://www.google.com/maps/place/Heart+of+Styria,+Austrian+bakery+and+restaurant/@27.1961628,33.8215864,17z')">
+        <i class="ti ti-map" aria-hidden="true" style="margin-right:6px;vertical-align:-2px;"></i>Open in Google Maps
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ========= ABOUT ========= -->
+<div class="page" id="page-about">
+
+  <div class="about-band">
+    <div class="about-icon-row">
+      <i class="ti ti-bread ab-icon" aria-hidden="true"></i>
+      <i class="ti ti-heart ab-icon" aria-hidden="true"></i>
+      <i class="ti ti-cake ab-icon" aria-hidden="true"></i>
+    </div>
+    <p style="font-size:20px;font-weight:500;color:#FFF0E0;margin-bottom:4px;text-align:center;">Heart of Styria</p>
+    <p style="font-size:13px;color:rgba(255,220,170,.65);text-align:center;">Austrian Bakery, Restaurant &amp; Kebab House</p>
+  </div>
+
+  <div style="position:relative;overflow:hidden;">
+    <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=900&auto=format&fit=crop"
+      alt="Styrian forest" style="width:100%;height:200px;object-fit:cover;display:block;" />
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent,rgba(30,50,10,.82));display:flex;align-items:flex-end;padding:1.25rem;">
+      <p style="color:rgba(200,240,160,.9);font-size:14px;font-style:italic;">"From the green heart of Styria to the shores of the Red Sea"</p>
+    </div>
+  </div>
+
+  <div class="band-sand">
+    <p style="font-size:20px;font-weight:500;color:var(--brown);margin-bottom:8px;display:flex;align-items:center;gap:8px;">
+      <i class="ti ti-flag" style="color:var(--amber);" aria-hidden="true"></i>Our story
+    </p>
+    <p style="font-size:14px;color:var(--text-mid);line-height:1.75;margin-bottom:1rem;">
+      Nestled in Hurghada's Touristic Villages on Metro Street, Heart of Styria brings the warmth and flavors of Austria's Styrian province to the Red Sea coast. We are a bakery, restaurant, and kebab house all in one — a place where the Alpine tradition of handcrafted pastries meets Egyptian hospitality.
+    </p>
+    <p style="font-size:14px;color:var(--text-mid);line-height:1.75;">
+      Every pastry is baked fresh each morning. Every dish is made with care. Whether you are a Hurghada resident or on holiday, we want you to feel completely at home — with hearty breakfasts, original Styrian sweets, satisfying mains, and prices that are genuinely fair.
+    </p>
+  </div>
+
+  <div class="band-amber">
+    <p style="font-size:18px;font-weight:500;color:#FFF0E0;margin-bottom:1rem;display:flex;align-items:center;gap:8px;">
+      <i class="ti ti-shield-check" aria-hidden="true"></i>What we offer
+    </p>
+    <div class="feat-grid">
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-bread" aria-hidden="true"></i></div><div class="feat-name">Fresh baking daily</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-cake" aria-hidden="true"></i></div><div class="feat-name">Austrian pastries</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-tools-kitchen-2" aria-hidden="true"></i></div><div class="feat-name">Full restaurant</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-meat" aria-hidden="true"></i></div><div class="feat-name">Kebab house</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-coffee" aria-hidden="true"></i></div><div class="feat-name">Coffee &amp; drinks</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-leaf" aria-hidden="true"></i></div><div class="feat-name">Vegetarian options</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-wheelchair" aria-hidden="true"></i></div><div class="feat-name">Fully accessible</div></div>
+      <div class="feat-card fc-amber"><div class="feat-icon"><i class="ti ti-users" aria-hidden="true"></i></div><div class="feat-name">All group sizes</div></div>
+    </div>
+  </div>
+
+  <div class="band-brown" style="text-align:center;">
+    <p style="color:var(--gold);font-size:15px;font-weight:500;margin-bottom:4px;">Come taste the difference</p>
+    <p style="color:rgba(232,168,50,.5);font-size:13px;margin-bottom:1.25rem;">Metro Street, Hurghada · 09:00–23:00</p>
+    <button class="btn-shine" onclick="go('visit')">Get directions</button>
+  </div>
+</div>
+
+<script>
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nl').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const map = ['home','gallery','reviews','visit','about'];
+  const idx = map.indexOf(id);
+  if(idx>=0) document.querySelectorAll('.nl')[idx].classList.add('active');
+  document.querySelector('nav').scrollIntoView({behavior:'smooth'});
+}
+function openLink(url){ window.open(url,'_blank'); }
+</script>
