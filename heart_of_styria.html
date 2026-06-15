@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heart of Styria – Austrian Bakery & Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--gold:#E8AE68;--yellow:#FFD275;--peach:#E3A587;--mint:#96C5B0;--green:#6CAE75;--cream:#F2D492;
+--dark:#1a1a1a;--text:#2d2d2d;--white:#fff;--light-bg:#faf8f4;
+}
+body{font-family:'Lato',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden}
+html{scroll-behavior:smooth}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;transition:all .4s;background:transparent}
+nav.scrolled{background:rgba(26,26,26,.95);backdrop-filter:blur(10px);box-shadow:0 2px 30px rgba(0,0,0,.3)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo-heart{width:36px;height:36px;display:flex;align-items:center;justify-content:center}
+.logo svg{width:36px;height:36px}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.85);text-decoration:none;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:100%;height:1px;background:var(--gold);transition:right .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{right:0}
+.nav-links a.active{color:var(--gold)}
+.lang-btn{background:transparent;border:1px solid var(--gold);color:var(--gold);padding:.35rem .9rem;border-radius:20px;cursor:pointer;font-size:.78rem;letter-spacing:.1em;transition:all .3s;font-family:'Lato',sans-serif}
+.lang-btn:hover{background:var(--gold);color:var(--dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:all .3s}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(20,20,20,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:var(--white);text-decoration:none;font-size:1.5rem;font-family:'Playfair Display',serif;transition:color .3s}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-close{position:absolute;top:1.5rem;right:2rem;font-size:2rem;color:var(--white);cursor:pointer;background:none;border:none}
+
+/* PAGES */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* ===== HOME PAGE ===== */
+.hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at top,#F2D492 0%,#F29559 35%,#CEB7B3 70%,#333232 100%)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,#C3E8BD 0%,transparent 40%),radial-gradient(circle at 80% 20%,#E2C044 0%,transparent 45%);opacity:.6}
+.particles{position:absolute;inset:0;pointer-events:none}
+.particle{position:absolute;border-radius:50%;opacity:0;animation:float-particle linear infinite}
+@keyframes float-particle{0%{opacity:0;transform:translateY(100vh) scale(0)}10%{opacity:.6}90%{opacity:.4}100%{opacity:0;transform:translateY(-20vh) scale(1.2)}}
+.hero-glow{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle, rgba(232,174,104,.12) 0%, transparent 70%);animation:pulse-glow 4s ease-in-out infinite;left:50%;top:50%;transform:translate(-50%,-50%)}
+@keyframes pulse-glow{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.6}50%{transform:translate(-50%,-50%) scale(1.2);opacity:1}}
+.hero-content{position:relative;z-index:2;text-align:center;padding:2rem}
+.hero-badge{display:inline-block;padding:.4rem 1.2rem;border:1px solid rgba(232,174,104,.4);border-radius:20px;color:var(--gold);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;animation:fade-down .8s ease .3s both}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,6.5rem);color:var(--white);line-height:1;margin-bottom:.5rem;animation:fade-up .8s ease .5s both}
+.hero-title span{color:var(--gold);font-style:italic}
+.hero-subtitle{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,3vw,1.8rem);color:rgba(255,255,255,.6);font-weight:400;margin-bottom:2rem;animation:fade-up .8s ease .7s both}
+.hero-tagline{font-size:.9rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:3rem;animation:fade-up .8s ease .9s both}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fade-up .8s ease 1.1s both}
+.btn-primary{background:var(--gold);color:var(--dark);padding:.85rem 2.2rem;border-radius:30px;text-decoration:none;font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;transition:all .3s;position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.2);transform:translateX(-100%);transition:transform .4s}
+.btn-primary:hover::after{transform:translateX(100%)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(232,174,104,.4)}
+.btn-outline{border:1px solid rgba(255,255,255,.4);color:var(--white);padding:.85rem 2.2rem;border-radius:30px;text-decoration:none;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;transition:all .3s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.scroll-indicator{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;animation:fade-in 1s ease 1.5s both;cursor:pointer}
+.scroll-indicator span{font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.4);text-transform:uppercase}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,transparent,var(--gold));animation:scroll-line 2s ease-in-out infinite}
+@keyframes scroll-line{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+@keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade-down{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+
+/* GOOEY TEXT MORPHING */
+.gooey-wrap{position:relative;height:clamp(4rem,12vw,8rem);width:100%;max-width:900px;margin:0 auto 1.5rem;display:flex;align-items:center;justify-content:center;filter:url(#gooey-threshold)}
+.gooey-text{position:absolute;font-family:'Playfair Display',serif;font-size:clamp(2.8rem,8vw,6.5rem);font-weight:700;color:#F2D492;letter-spacing:-.02em;text-align:center;white-space:nowrap;user-select:none}
+.gooey-text.gooey-front{opacity:1}
+.gooey-text.gooey-back{opacity:0}
+
+/* SECTIONS */
+section{padding:5rem 2rem}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);color:var(--dark);margin-bottom:1rem;line-height:1.2}
+.section-title em{color:var(--green);font-style:italic}
+.section-divider{width:60px;height:2px;background:var(--gold);margin:1.5rem 0}
+
+/* FEATURES */
+.features-section{background:var(--light-bg)}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;margin-top:3rem}
+.feature-card{background:var(--white);border-radius:16px;padding:2rem;text-align:center;transition:all .4s;opacity:0;transform:translateY(30px);position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--green));transform:scaleX(0);transition:transform .4s}
+.feature-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,.08)}
+.feature-card:hover::before{transform:scaleX(1)}
+.feature-card.visible{opacity:1;transform:translateY(0)}
+.feature-icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+.feature-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.5rem;color:var(--dark)}
+.feature-card p{font-size:.88rem;color:#666;line-height:1.7}
+
+/* STATS */
+.stats-section{background:var(--dark);padding:4rem 2rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2rem;max-width:900px;margin:0 auto;text-align:center}
+.stat-item{opacity:0;transform:scale(.9)}
+.stat-item.visible{opacity:1;transform:scale(1);transition:all .6s}
+.stat-number{font-family:'Playfair Display',serif;font-size:3.5rem;color:var(--gold);display:block;font-weight:700}
+.stat-label{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:.3rem}
+
+/* QUICK MENU PREVIEW */
+.quick-menu{background:var(--white)}
+.menu-preview-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:3rem}
+.menu-preview-card{border:1px solid #f0ebe0;border-radius:16px;padding:1.8rem;transition:all .4s;cursor:pointer;opacity:0;transform:translateX(-20px)}
+.menu-preview-card.visible{opacity:1;transform:translateX(0)}
+.menu-preview-card:hover{border-color:var(--gold);box-shadow:0 10px 30px rgba(232,174,104,.15);transform:translateY(-4px)}
+.menu-cat-icon{font-size:2rem;margin-bottom:.8rem}
+.menu-preview-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.4rem}
+.menu-preview-card p{font-size:.83rem;color:#888;line-height:1.6}
+.menu-preview-card .price-from{margin-top:.8rem;color:var(--gold);font-weight:700;font-size:.9rem}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,var(--dark) 0%, #0d1a0f 100%);position:relative;overflow:hidden;text-align:center}
+.cta-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%, rgba(108,174,117,.15) 0%, transparent 70%)}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);color:var(--white);margin-bottom:1rem}
+.cta-section p{color:rgba(255,255,255,.6);max-width:500px;margin:0 auto 2rem;font-size:.95rem;line-height:1.8}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:2.5rem;max-width:700px;margin-left:auto;margin-right:auto}
+.contact-item{display:flex;align-items:center;gap:.8rem;color:rgba(255,255,255,.7);font-size:.88rem;justify-content:center}
+.contact-item svg{width:18px;height:18px;flex-shrink:0;opacity:.7}
+
+/* ===== MENU PAGE ===== */
+.menu-hero{background:var(--dark);padding:8rem 2rem 4rem;text-align:center;position:relative;overflow:hidden}
+.menu-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:var(--light-bg);clip-path:ellipse(60% 100% at 50% 100%)}
+.menu-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--white)}
+.menu-hero h1 em{color:var(--gold);font-style:italic}
+.menu-hero p{color:rgba(255,255,255,.5);margin-top:.8rem;letter-spacing:.1em;font-size:.85rem;text-transform:uppercase}
+
+.menu-page-content{background:var(--light-bg);padding:3rem 2rem 5rem}
+.menu-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:3rem;justify-content:center}
+.menu-tab{background:transparent;border:1px solid #ddd;border-radius:30px;padding:.5rem 1.4rem;cursor:pointer;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;transition:all .3s;font-family:'Lato',sans-serif;color:#666}
+.menu-tab.active,.menu-tab:hover{background:var(--gold);border-color:var(--gold);color:var(--dark);font-weight:700}
+
+.menu-section{display:none}
+.menu-section.active{display:block}
+.menu-category{margin-bottom:3rem;background:var(--white);border-radius:16px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.menu-category-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--dark);margin-bottom:.3rem;display:flex;align-items:center;gap:.8rem}
+.menu-category-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#e8d5b0,transparent)}
+.menu-category-sub{font-size:.78rem;color:#999;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem}
+.menu-items{display:grid;gap:.8rem}
+.menu-item{display:flex;justify-content:space-between;align-items:flex-start;padding:.9rem 0;border-bottom:1px solid #f5f0e8}
+.menu-item:last-child{border-bottom:none}
+.menu-item-info{}
+.menu-item-name{font-weight:700;font-size:.95rem;color:var(--dark);margin-bottom:.2rem}
+.menu-item-desc{font-size:.8rem;color:#999;font-style:italic}
+.menu-item-price{font-weight:700;color:var(--gold);white-space:nowrap;margin-left:1rem;font-size:.95rem}
+
+/* ===== GALLERY PAGE ===== */
+.gallery-hero{background:var(--dark);padding:8rem 2rem 4rem;text-align:center;position:relative;overflow:hidden}
+.gallery-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--white)}
+.gallery-hero h1 em{color:var(--gold);font-style:italic}
+.gallery-content{background:var(--light-bg);padding:4rem 2rem 6rem}
+.gallery-placeholder{max-width:900px;margin:0 auto;text-align:center}
+.gallery-grid-placeholder{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:3rem}
+.gallery-cell{border-radius:12px;background:var(--white);border:2px dashed #e0d5c0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1rem;color:#bbb;font-size:.85rem;transition:all .3s;min-height:220px}
+.gallery-cell:hover{border-color:var(--gold);color:var(--gold)}
+.gallery-cell svg{width:40px;height:40px;margin-bottom:.8rem;opacity:.4}
+.gallery-cell:hover svg{opacity:.7}
+
+/* ===== REVIEWS PAGE ===== */
+.reviews-hero{background:var(--dark);padding:8rem 2rem 4rem;text-align:center}
+.reviews-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--white)}
+.reviews-hero h1 em{color:var(--gold);font-style:italic}
+.reviews-content{background:var(--light-bg);padding:4rem 2rem 6rem}
+.reviews-inner{max-width:900px;margin:0 auto}
+.overall-rating{text-align:center;margin-bottom:4rem;padding:3rem;background:var(--white);border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,.06)}
+.overall-score{font-family:'Playfair Display',serif;font-size:5rem;color:var(--gold);line-height:1}
+.stars-display{font-size:1.5rem;color:var(--gold);margin:.5rem 0}
+.rating-source{font-size:.8rem;color:#999;letter-spacing:.1em;text-transform:uppercase;margin-top:.5rem}
+.reviews-grid{display:grid;gap:1.5rem}
+.review-card{background:var(--white);border-radius:16px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.04);opacity:0;transform:translateY(20px);transition:all .6s}
+.review-card.visible{opacity:1;transform:translateY(0)}
+.review-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.reviewer-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--green));display:flex;align-items:center;justify-content:center;color:var(--white);font-weight:700;font-size:1rem;flex-shrink:0}
+.reviewer-name{font-weight:700;font-size:.95rem}
+.reviewer-date{font-size:.78rem;color:#aaa;margin-top:.15rem}
+.review-stars{color:var(--gold);font-size:.9rem;margin-bottom:.8rem}
+.review-text{font-size:.88rem;line-height:1.8;color:#555;font-style:italic}
+.review-platform{margin-top:1rem;font-size:.75rem;color:#bbb;letter-spacing:.1em;text-transform:uppercase}
+
+/* ===== STORY PAGE ===== */
+.story-hero{background:var(--dark);padding:8rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
+.story-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 40% 60%, rgba(232,174,104,.1) 0%, transparent 60%)}
+.story-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);color:var(--white);position:relative}
+.story-hero h1 em{color:var(--gold);font-style:italic}
+.story-hero p{color:rgba(255,255,255,.5);margin-top:1rem;font-size:1rem;line-height:1.8;max-width:600px;margin-left:auto;margin-right:auto}
+.story-content{padding:5rem 2rem}
+.story-inner{max-width:900px;margin:0 auto}
+.story-switch{display:flex;gap:.5rem;margin-bottom:3rem;background:#f5f0e8;border-radius:30px;padding:4px;width:fit-content}
+.story-switch button{padding:.6rem 1.5rem;border-radius:26px;border:none;cursor:pointer;font-size:.85rem;font-family:'Lato',sans-serif;font-weight:700;letter-spacing:.05em;transition:all .3s;background:transparent;color:#888}
+.story-switch button.active{background:var(--gold);color:var(--dark)}
+.story-view{display:none}
+.story-view.active{display:block}
+.story-section{margin-bottom:4rem}
+.story-section h2{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--dark);margin-bottom:.8rem}
+.story-section h2 em{color:var(--green);font-style:italic}
+.story-section p{font-size:.95rem;line-height:1.9;color:#555;margin-bottom:1rem}
+.story-quote{border-left:3px solid var(--gold);padding:1rem 1.5rem;background:#faf7f0;border-radius:0 10px 10px 0;margin:2rem 0;font-family:'Playfair Display',serif;font-size:1.05rem;font-style:italic;color:var(--dark)}
+.story-highlights{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:3rem}
+.highlight-item{background:var(--light-bg);border-radius:12px;padding:1.5rem;text-align:center}
+.highlight-icon{font-size:2rem;margin-bottom:.5rem}
+.highlight-item h4{font-size:.9rem;font-weight:700;margin-bottom:.3rem}
+.highlight-item p{font-size:.8rem;color:#888}
+
+/* FOOTER */
+footer{background:#0d0d0d;padding:3rem 2rem;text-align:center}
+footer .footer-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);margin-bottom:.8rem}
+footer p{color:rgba(255,255,255,.3);font-size:.8rem;line-height:1.8}
+footer a{color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s}
+footer a:hover{color:var(--gold)}
+
+/* FLOATING DECORATIONS */
+.float-deco{position:absolute;opacity:.06;pointer-events:none;animation:float-deco 6s ease-in-out infinite}
+@keyframes float-deco{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-20px) rotate(5deg)}}
+
+/* ANIMATION HELPERS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s, transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:all .7s}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:all .7s}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+@media(max-width:768px){
+  .hamburger{display:flex}
+  .nav-links{display:none}
+  nav .lang-btn{display:none}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn-primary,.btn-outline{width:220px;text-align:center}
+  .menu-tabs{gap:.3rem}
+  .menu-tab{padding:.4rem .9rem;font-size:.75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a class="logo" href="#" onclick="showPage('home');return false">
+      <div class="logo-heart">
+        <svg viewBox="0 0 40 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 36S3 24 3 12.5C3 7.25 7.25 3 12.5 3c3.04 0 5.7 1.42 7.5 3.65C21.8 4.42 24.46 3 27.5 3 32.75 3 37 7.25 37 12.5 37 24 20 36 20 36Z" fill="#E8AE68" opacity=".25"/>
+          <path d="M20 34S4 22.5 4 11.5C4 6.8 7.8 3 12.5 3c2.9 0 5.4 1.4 7 3.5C21.1 4.4 23.6 3 26.5 3 31.2 3 35 6.8 35 11.5 35 22.5 20 34 20 34Z" stroke="#E8AE68" stroke-width="1.5" fill="none"/>
+          <path d="M12 16 L16 12 L20 16 L24 10 L28 16" stroke="#6CAE75" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      Heart of Styria
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#" onclick="showPage('home');return false" class="active" data-page="home" data-en="Home" data-de="Start">Home</a></li>
+      <li><a href="#" onclick="showPage('menu');return false" data-page="menu" data-en="Menu" data-de="Speisekarte">Menu</a></li>
+      <li><a href="#" onclick="showPage('gallery');return false" data-page="gallery" data-en="Gallery" data-de="Galerie">Gallery</a></li>
+      <li><a href="#" onclick="showPage('reviews');return false" data-page="reviews" data-en="Reviews" data-de="Bewertungen">Reviews</a></li>
+      <li><a href="#" onclick="showPage('story');return false" data-page="story" data-en="Our Story" data-de="Unsere Geschichte">Our Story</a></li>
+      <li><button class="lang-btn" onclick="toggleLang()" id="lang-toggle">DE</button></li>
+    </ul>
+    <div style="display:flex;gap:1rem;align-items:center">
+      <button class="lang-btn" onclick="toggleLang()" id="lang-toggle-mobile" style="display:none">DE</button>
+      <div class="hamburger" onclick="toggleMobile()" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" onclick="toggleMobile()">✕</button>
+  <a href="#" onclick="showPage('home');toggleMobile();return false" data-en="Home" data-de="Start">Home</a>
+  <a href="#" onclick="showPage('menu');toggleMobile();return false" data-en="Menu" data-de="Speisekarte">Menu</a>
+  <a href="#" onclick="showPage('gallery');toggleMobile();return false" data-en="Gallery" data-de="Galerie">Gallery</a>
+  <a href="#" onclick="showPage('reviews');toggleMobile();return false" data-en="Reviews" data-de="Bewertungen">Reviews</a>
+  <a href="#" onclick="showPage('story');toggleMobile();return false" data-en="Our Story" data-de="Unsere Geschichte">Our Story</a>
+  <button class="lang-btn" onclick="toggleLang();toggleMobile()" style="font-size:1rem;padding:.6rem 1.5rem" id="lang-toggle-mob2">Deutsch</button>
+</div>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="particles" id="particles"></div>
+    <div class="hero-glow"></div>
+
+    <!-- GOOEY SVG FILTER -->
+    <svg class="absolute" style="position:absolute;height:0;width:0" aria-hidden="true">
+      <defs>
+        <filter id="gooey-threshold">
+          <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                      0 0 0 255 -140"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Floating decorations -->
+    <svg class="float-deco" style="top:15%;left:10%;width:80px;animation-delay:0s" viewBox="0 0 80 80" fill="none"><path d="M40 10 Q55 25 40 40 Q25 55 40 70" stroke="#E8AE68" stroke-width="2" fill="none"/><ellipse cx="40" cy="10" rx="8" ry="12" fill="#E8AE68" opacity=".4" transform="rotate(-15 40 10)"/></svg>
+    <svg class="float-deco" style="top:25%;right:12%;width:60px;animation-delay:2s" viewBox="0 0 60 60" fill="none"><circle cx="30" cy="30" r="20" stroke="#6CAE75" stroke-width="1.5" fill="none"/><circle cx="30" cy="30" r="10" fill="#6CAE75" opacity=".3"/></svg>
+    <svg class="float-deco" style="bottom:20%;left:8%;width:70px;animation-delay:1s" viewBox="0 0 70 70" fill="none"><path d="M10 35 Q35 10 60 35 Q35 60 10 35Z" stroke="#FFD275" stroke-width="1.5" fill="#FFD275" opacity=".2"/></svg>
+    <svg class="float-deco" style="bottom:30%;right:8%;width:50px;animation-delay:3s" viewBox="0 0 50 50" fill="none"><rect x="10" y="10" width="30" height="30" rx="4" stroke="#E3A587" stroke-width="1.5" fill="none" transform="rotate(20 25 25)"/></svg>
+
+    <div class="hero-content">
+      <span class="hero-badge" data-en="Austrian Bakery & Restaurant · Hurghada" data-de="Österreichische Bäckerei & Restaurant · Hurghada">Austrian Bakery & Restaurant · Hurghada</span>
+
+      <div class="gooey-wrap" id="gooey-wrap">
+        <span class="gooey-text gooey-front" id="gooey-text1">Heart</span>
+        <span class="gooey-text gooey-back" id="gooey-text2">of</span>
+      </div>
+      <p class="hero-subtitle" data-en="A Taste of Austria by the Red Sea" data-de="Ein Stück Österreich am Roten Meer">A Taste of Austria by the Red Sea</p>
+      <p class="hero-tagline" data-en="Crafted with love · Served with passion" data-de="Mit Liebe gemacht · Mit Leidenschaft serviert">Crafted with love · Served with passion</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="showPage('menu');return false" data-en="Explore Our Menu" data-de="Unsere Speisekarte">Explore Our Menu</a>
+        <a href="#" class="btn-outline" onclick="showPage('story');return false" data-en="Our Story" data-de="Unsere Geschichte">Our Story</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" onclick="scrollToFeatures()">
+      <span data-en="Discover" data-de="Entdecken">Discover</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="features">
+    <div class="section-inner">
+      <span class="section-eyebrow reveal" data-en="Why choose us" data-de="Warum wir">Why choose us</span>
+      <h2 class="section-title reveal" data-en="More than a <em>bakery</em>" data-de="Mehr als eine <em>Bäckerei</em>">More than a <em>bakery</em></h2>
+      <div class="section-divider reveal"></div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🥐</span>
+          <h3 data-en="Freshly Baked Daily" data-de="Täglich frisch gebacken">Freshly Baked Daily</h3>
+          <p data-en="Authentic Austrian breads, rolls and pastries baked fresh every morning from traditional recipes." data-de="Authentisches österreichisches Brot, Semmeln und Gebäck, täglich frisch nach traditionellen Rezepten gebacken.">Authentic Austrian breads, rolls and pastries baked fresh every morning from traditional recipes.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">☕</span>
+          <h3 data-en="Viennese Coffee Culture" data-de="Wiener Kaffeehauskultur">Viennese Coffee Culture</h3>
+          <p data-en="Cappuccino, Latte, Espresso — enjoy the coffee tradition of Vienna in the heart of Hurghada." data-de="Cappuccino, Latte, Espresso — erleben Sie die Kaffeehauskultur Wiens im Herzen von Hurghada.">Cappuccino, Latte, Espresso — enjoy the coffee tradition of Vienna in the heart of Hurghada.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🍽️</span>
+          <h3 data-en="Authentic Austrian Cuisine" data-de="Authentische österreichische Küche">Authentic Austrian Cuisine</h3>
+          <p data-en="Schnitzel, Gulasch, Strudel — classic dishes brought to life with quality ingredients." data-de="Schnitzel, Gulasch, Strudel — klassische Gerichte mit hochwertigen Zutaten zubereitet.">Schnitzel, Gulasch, Strudel — classic dishes brought to life with quality ingredients.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🌊</span>
+          <h3 data-en="Red Sea Location" data-de="Lage am Roten Meer">Red Sea Location</h3>
+          <p data-en="Find us in the Touristic Villages of Hurghada — the perfect retreat after a day by the sea." data-de="Finden Sie uns in den Touristic Villages von Hurghada — die perfekte Oase nach einem Tag am Meer.">Find us in the Touristic Villages of Hurghada — the perfect retreat after a day by the sea.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-number" data-target="80">0</span>
+        <div class="stat-label" data-en="Menu Items" data-de="Gerichte">Menu Items</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="100">0</span>
+        <div class="stat-label" data-en="% Austrian Recipes" data-de="% Österr. Rezepte">% Austrian Recipes</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="5">0</span>
+        <div class="stat-label" data-en="★ Google Rating" data-de="★ Google Bewertung">★ Google Rating</div>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" data-target="1">0</span>
+        <div class="stat-label" data-en="Location in Hurghada" data-de="Standort in Hurghada">Location in Hurghada</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK MENU PREVIEW -->
+  <section class="quick-menu">
+    <div class="section-inner">
+      <span class="section-eyebrow reveal" data-en="What we offer" data-de="Was wir anbieten">What we offer</span>
+      <h2 class="section-title reveal" data-en="Explore our <em>menu</em>" data-de="Entdecken Sie unsere <em>Speisekarte</em>">Explore our <em>menu</em></h2>
+      <div class="section-divider reveal"></div>
+      <div class="menu-preview-grid">
+        <div class="menu-preview-card" onclick="showPage('menu');setMenuTab('breakfast')">
+          <div class="menu-cat-icon">🌅</div>
+          <h3 data-en="Breakfast" data-de="Frühstück">Breakfast</h3>
+          <p data-en="Start your day the Austrian way with fresh rolls, eggs and coffee." data-de="Starten Sie den Tag auf österreichische Art mit frischen Semmeln, Eiern und Kaffee.">Start your day the Austrian way with fresh rolls, eggs and coffee.</p>
+          <div class="price-from" data-en="From 180 LE" data-de="Ab 180 LE">From 180 LE</div>
+        </div>
+        <div class="menu-preview-card" onclick="showPage('menu');setMenuTab('bakery')">
+          <div class="menu-cat-icon">🍞</div>
+          <h3 data-en="Bakery" data-de="Bäckerei">Bakery</h3>
+          <p data-en="Artisan breads, pretzels, rolls and sweet pastries baked fresh daily." data-de="Handwerkliches Brot, Brezeln, Semmeln und süßes Gebäck, täglich frisch gebacken.">Artisan breads, pretzels, rolls and sweet pastries baked fresh daily.</p>
+          <div class="price-from" data-en="From 15 LE" data-de="Ab 15 LE">From 15 LE</div>
+        </div>
+        <div class="menu-preview-card" onclick="showPage('menu');setMenuTab('mains')">
+          <div class="menu-cat-icon">🥩</div>
+          <h3 data-en="Main Courses" data-de="Hauptspeisen">Main Courses</h3>
+          <p data-en="Hearty Austrian mains — schnitzel, gulasch, rouladen and pasta." data-de="Herzhafte österreichische Hauptspeisen — Schnitzel, Gulasch, Rouladen und Pasta.">Hearty Austrian mains — schnitzel, gulasch, rouladen and pasta.</p>
+          <div class="price-from" data-en="From 250 LE" data-de="Ab 250 LE">From 250 LE</div>
+        </div>
+        <div class="menu-preview-card" onclick="showPage('menu');setMenuTab('sweets')">
+          <div class="menu-cat-icon">🥐</div>
+          <h3 data-en="Sweet Treats" data-de="Süßspeisen">Sweet Treats</h3>
+          <p data-en="Apfelstrudel, Kaiserschmarrn, Buchteln — Austrian dessert magic." data-de="Apfelstrudel, Kaiserschmarrn, Buchteln — österreichische Dessertkunst.">Apfelstrudel, Kaiserschmarrn, Buchteln — Austrian dessert magic.</p>
+          <div class="price-from" data-en="From 160 LE" data-de="Ab 160 LE">From 160 LE</div>
+        </div>
+        <div class="menu-preview-card" onclick="showPage('menu');setMenuTab('soups')">
+          <div class="menu-cat-icon">🥣</div>
+          <h3 data-en="Soups & Salads" data-de="Suppen & Salate">Soups & Salads</h3>
+          <p data-en="Clear beef soup, vegetable soup, fresh salads — light and satisfying." data-de="Rindsuppe, Gemüsesuppe, frische Salate — leicht und sättigend.">Clear beef soup, vegetable soup, fresh salads — light and satisfying.</p>
+          <div class="price-from" data-en="From 80 LE" data-de="Ab 80 LE">From 80 LE</div>
+        </div>
+        <div class="menu-preview-card" onclick="showPage('menu');setMenuTab('drinks')">
+          <div class="menu-cat-icon">☕</div>
+          <h3 data-en="Drinks" data-de="Getränke">Drinks</h3>
+          <p data-en="Hot drinks, cold refreshments, juices and energy drinks." data-de="Heiße Getränke, kalte Erfrischungen, Säfte und Energydrinks.">Hot drinks, cold refreshments, juices and energy drinks.</p>
+          <div class="price-from" data-en="From 20 LE" data-de="Ab 20 LE">From 20 LE</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / CONTACT -->
+  <section class="cta-section">
+    <div class="section-inner" style="position:relative;z-index:1">
+      <span class="section-eyebrow" style="color:var(--mint)" data-en="Visit us" data-de="Besuchen Sie uns">Visit us</span>
+      <h2 data-en="Come taste <em>Austria</em><br>in Hurghada" data-de="Erleben Sie <em>Österreich</em><br>in Hurghada">Come taste <em style="color:var(--gold);font-style:italic">Austria</em><br>in Hurghada</h2>
+      <p data-en="We're open daily and ready to welcome you with fresh bread, warm coffee and genuine Austrian hospitality." data-de="Wir sind täglich geöffnet und freuen uns, Sie mit frischem Brot, warmem Kaffee und echter österreichischer Gastfreundschaft zu empfangen.">We're open daily and ready to welcome you with fresh bread, warm coffee and genuine Austrian hospitality.</p>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21L8.53 10.5a11.09 11.09 0 005.97 5.97l1.112-1.694a1 1 0 011.21-.502l4.493 1.498A1 1 0 0121 16.72V20a2 2 0 01-2 2h-1C9.716 22 2 14.284 2 5V4a2 2 0 012-2"/></svg>
+          <span>01038135123</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span data-en="Metro Street, Touristic Villages, Hurghada" data-de="Metro Street, Touristic Villages, Hurghada">Metro Street, Touristic Villages, Hurghada</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          <a href="https://www.facebook.com/share/p/1KzieJRSiZ/" target="_blank" style="color:inherit" data-en="Facebook Page" data-de="Facebook-Seite">Facebook Page</a>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 9m0 8V9m0 0L9 7"/></svg>
+          <a href="https://www.google.com/maps/place/Heart+of+Styria" target="_blank" style="color:inherit" data-en="Google Maps" data-de="Google Maps">Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Heart of Styria</div>
+    <p data-en="Austrian Bakery & Restaurant · Metro Street, Touristic Villages, Hurghada" data-de="Österreichische Bäckerei & Restaurant · Metro Street, Touristic Villages, Hurghada">Austrian Bakery & Restaurant · Metro Street, Touristic Villages, Hurghada</p>
+    <p style="margin-top:.5rem"><a href="https://www.facebook.com/share/p/1KzieJRSiZ/" target="_blank">Facebook</a> · <a href="https://www.google.com/maps/place/Heart+of+Styria,+Austrian+bakery+and+restaurant/@27.1961628,33.8215864,17z" target="_blank">Maps</a></p>
+  </footer>
+</div>
+
+<!-- ===== MENU PAGE ===== -->
+<div id="page-menu" class="page">
+  <div class="menu-hero">
+    <h1 data-en="Our <em>Menu</em>" data-de="Unsere <em>Speisekarte</em>">Our <em>Menu</em></h1>
+    <p data-en="Crafted with love · Served with passion" data-de="Mit Liebe gemacht · Mit Leidenschaft serviert">Crafted with love · Served with passion</p>
+  </div>
+  <div class="menu-page-content">
+    <div style="max-width:1100px;margin:0 auto">
+      <div class="menu-tabs">
+        <button class="menu-tab active" onclick="setMenuTab('breakfast')" data-en="Breakfast" data-de="Frühstück">Breakfast</button>
+        <button class="menu-tab" onclick="setMenuTab('sweets')" data-en="Sweet Treats" data-de="Süßspeisen">Sweet Treats</button>
+        <button class="menu-tab" onclick="setMenuTab('bakery')" data-en="Bakery" data-de="Bäckerei">Bakery</button>
+        <button class="menu-tab" onclick="setMenuTab('soups')" data-en="Soups & Salads" data-de="Suppen & Salate">Soups & Salads</button>
+        <button class="menu-tab" onclick="setMenuTab('mains')" data-en="Main Course" data-de="Hauptspeisen">Main Course</button>
+        <button class="menu-tab" onclick="setMenuTab('vegetarian')" data-en="Vegetarian" data-de="Vegetarisch">Vegetarian</button>
+        <button class="menu-tab" onclick="setMenuTab('deli')" data-en="Deli Counter" data-de="Theke">Deli Counter</button>
+        <button class="menu-tab" onclick="setMenuTab('drinks')" data-en="Drinks" data-de="Getränke">Drinks</button>
+      </div>
+
+      <!-- BREAKFAST -->
+      <div id="menu-breakfast" class="menu-section active">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🌅 <span data-en="Breakfast (incl. Coffee)" data-de="Frühstück (inkl. Kaffee)">Breakfast (incl. Coffee)</span></h2>
+          <div class="menu-category-sub" data-en="Each additional coffee 60 LE" data-de="Jeder weitere Kaffee 60 LE">Each additional coffee 60 LE</div>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Small Breakfast" data-de="Kleines Frühstück">Small Breakfast</div><div class="menu-item-desc" data-en="2 Kaiser rolls, smoked turkey sausage, salami, Gouda, chicken sausage, 2 fried eggs, jam, Kiri, butter" data-de="2 Kaiserbrötchen, ger. Putenwurst, Salami, Gouda, Hähnchen-Wurst, 2 Spiegeleier, Marmelade, Kiri, Butter">2 Kaiser rolls, smoked turkey sausage, salami, Gouda, chicken sausage, 2 fried eggs, jam, Kiri, butter</div></div><div class="menu-item-price">330 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Big Breakfast" data-de="Großes Frühstück">Big Breakfast</div><div class="menu-item-desc" data-en="2 Kaiser rolls, 1 small sweet yeast braid, 1 slice brown bread, turkey sausage, salami, chicken sausage, 3 fried eggs, butter, jam, honey, Kiri, spread, fruit yoghurt, orange juice" data-de="2 Kaiserbrötchen, 1 kleiner süßer Hefezopf, 1 Scheibe Schwarzbrot, ger. Putenwurst, Salami, Hähnchen-Wurst, 3 Spiegeleier, Butter, Marmelade, Honig, Kiri, Brotaufstrich, Fruchtjoghurt, Orangensaft">2 Kaiser rolls, 1 small sweet yeast braid, 1 slice brown bread, turkey sausage, salami, chicken sausage, 3 fried eggs, butter, jam, honey, Kiri, spread, fruit yoghurt, orange juice</div></div><div class="menu-item-price">450 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Fitness Breakfast" data-de="Fitness Frühstück">Fitness Breakfast</div><div class="menu-item-desc" data-en="Oatmeal, yoghurt, milk, fruit, nuts" data-de="Haferflocken, Joghurt, Milch, Früchte, Nüsse">Oatmeal, yoghurt, milk, fruit, nuts</div></div><div class="menu-item-price">250 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Kids Breakfast" data-de="Kinder Frühstück">Kids Breakfast</div><div class="menu-item-desc" data-en="1 Kaiser roll, 1 small sweet yeast braid, 2 heart-shaped pancakes, butter, jam, Nutella, hot chocolate or orange juice" data-de="1 Kaiserbrötchen, 1 kleiner süßer Hefezopf, 2 Herz-Pfannkuchen, Butter, Marmelade, Nutella, Kakao oder Orangensaft">1 Kaiser roll, 1 small sweet yeast braid, 2 heart-shaped pancakes, butter, jam, Nutella, hot chocolate or orange juice</div></div><div class="menu-item-price">180 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Ham & Eggs" data-de="Eier & Speck">Ham & Eggs</div><div class="menu-item-desc" data-en="3 eggs with bread/rolls" data-de="3 Eier mit Brot/Brötchen">3 eggs with bread/rolls</div></div><div class="menu-item-price">290 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">☕ <span data-en="Special Offer" data-de="Angebot">Special Offer</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Cake & Coffee/Chocolate" data-de="Torte & Kaffee/Kakao">Cake & Coffee/Chocolate</div><div class="menu-item-desc" data-en="Various cakes" data-de="Verschiedene Torten">Various cakes</div></div><div class="menu-item-price">200 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Pastries & Coffee/Chocolate" data-de="Kleingebäck & Kaffee/Kakao">Pastries & Coffee/Chocolate</div><div class="menu-item-desc" data-en="Various pastries" data-de="Verschiedenes Kleingebäck">Various pastries</div></div><div class="menu-item-price">130 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🍳 <span data-en="Extras" data-de="Extras">Extras</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Fried Egg" data-de="Spiegelei">Fried Egg</div></div><div class="menu-item-price">30 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Scrambled Egg" data-de="Rührei">Scrambled Egg</div></div><div class="menu-item-price">30 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Omelette" data-de="Omlette">Omelette</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Omelette Pikant" data-de="Omelette Pikant">Omelette Pikant</div><div class="menu-item-desc" data-en="Spiced, with tomatos, cheese, ham" data-de="Mit Tomaten, Käse, Schinken">Spiced, with tomatos, cheese, ham</div></div><div class="menu-item-price">90 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SWEET TREATS -->
+      <div id="menu-sweets" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🍮 <span data-en="Sweet Treats" data-de="Süßspeisen">Sweet Treats</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kaiserschmarrn</div><div class="menu-item-desc" data-en="with apple sauce" data-de="mit Apfelmus oder Fruchtsalat">with apple sauce</div></div><div class="menu-item-price">350 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Topfenpalatschinken</div><div class="menu-item-desc" data-en="Quark crepes with fruit salad" data-de="mit Fruchtsalat">Quark crepes with fruit salad</div></div><div class="menu-item-price">320 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Topfennockerl</div><div class="menu-item-desc" data-en="Quark dumplings" data-de="Quark-Mehlspeise">Quark dumplings</div></div><div class="menu-item-price">320 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">2 Buchteln</div><div class="menu-item-desc" data-en="Sweet yeast buns with vanilla sauce" data-de="mit Vanillesoße">Sweet yeast buns with vanilla sauce</div></div><div class="menu-item-price">350 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Apple Strudel" data-de="Apfelstrudel">Apple Strudel</div><div class="menu-item-desc" data-en="with vanilla sauce" data-de="mit Vanillesoße">with vanilla sauce</div></div><div class="menu-item-price">270 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Topfenstrudel</div><div class="menu-item-desc" data-en="Quark strudel with vanilla sauce" data-de="mit Vanillesoße">Quark strudel with vanilla sauce</div></div><div class="menu-item-price">270 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🍞 <span>Toast</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Ham & Cheese" data-de="Schinken-Käse">Ham & Cheese</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Ham & Cheese & Fried Eggs" data-de="Schinken-Käse mit Spiegelei">Ham & Cheese & Fried Eggs</div></div><div class="menu-item-price">220 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Cheese" data-de="Käse">Cheese</div></div><div class="menu-item-price">170 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Special" data-de="Spezial">Special</div><div class="menu-item-desc" data-en="Ham, cheese, fried egg, with fries & salad" data-de="Schinken-Käse, Spiegelei, Pommes & gemischter Salat">Ham, cheese, fried egg, with fries & salad</div></div><div class="menu-item-price">350 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Farmer Toast" data-de="Bauerntoast">Farmer Toast</div><div class="menu-item-desc" data-en="Bread with ham, cheese & fried eggs" data-de="Schwarzbrot mit Schinken, Käse & Spiegelei">Bread with ham, cheese & fried eggs</div></div><div class="menu-item-price">250 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BAKERY -->
+      <div id="menu-bakery" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🍞 <span data-en="Bread" data-de="Brote">Bread</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Farmers Bread" data-de="Bauernbrot">Farmers Bread</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Housebread (Plain)" data-de="Hausbrot (ohne Gewürze)">Housebread (Plain)</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Carinthian Style Bread" data-de="Kärtnerbrot">Carinthian Style Bread</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Whole Grain Bread" data-de="Vollkornbrot">Whole Grain Bread</div></div><div class="menu-item-price">230 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Rye Bread" data-de="Roggenbrot">Rye Bread</div></div><div class="menu-item-price">220 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Walnut Bread" data-de="Walnussbrot">Walnut Bread</div></div><div class="menu-item-price">220 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Carrot Bread" data-de="Karottenbrot">Carrot Bread</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Onion Bread" data-de="Zwiebelbrot">Onion Bread</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="White Bread" data-de="Weißbrot">White Bread</div></div><div class="menu-item-price">120 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥖 <span data-en="Bread Rolls" data-de="Brötchen">Bread Rolls</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Vinschgauer</div><div class="menu-item-desc" data-en="South Tyrolean flatbread" data-de="Südtiroler Fladenbrot">South Tyrolean flatbread</div></div><div class="menu-item-price">80 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Wachauer</div><div class="menu-item-desc" data-en="Austrian mixed-grain roll" data-de="Österreichische Mischkornwecke">Austrian mixed-grain roll</div></div><div class="menu-item-price">80 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Kaiser/Schrippen" data-de="Kaisersemmel/Schrippen">Kaiser/Schrippen</div><div class="menu-item-desc" data-en="White bread rolls, pay 6 get 8" data-de="Zahle 6, erhalte 8">White bread rolls, pay 6 get 8</div></div><div class="menu-item-price">15 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kornspitz</div><div class="menu-item-desc" data-en="Multigrain roll" data-de="Vollkornweckerl">Multigrain roll</div></div><div class="menu-item-price">80 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Bierweckerl</div><div class="menu-item-desc" data-en="Beer roll (malt flavour)" data-de="Biergebäck (Malzgeschmack)">Beer roll (malt flavour)</div></div><div class="menu-item-price">70 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Kürbiskernsemmel</div><div class="menu-item-desc" data-en="Pumpkin seed roll" data-de="Kürbiskernweckerl">Pumpkin seed roll</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Sesamsemmel</div><div class="menu-item-desc" data-en="Sesame seed roll" data-de="Sesamweckerl">Sesame seed roll</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Vollkornsemmel</div><div class="menu-item-desc" data-en="Whole grain roll" data-de="Vollkornweckerl">Whole grain roll</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Pizza-Weckerl</div><div class="menu-item-desc" data-en="Pizza roll" data-de="Pizzaweckerl">Pizza roll</div></div><div class="menu-item-price">90 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Laugenbrötchen</div><div class="menu-item-desc" data-en="Pretzel roll" data-de="Laugenbrötchen">Pretzel roll</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Käsesemmel</div><div class="menu-item-desc" data-en="Cheese roll" data-de="Käseweckerl">Cheese roll</div></div><div class="menu-item-price">70 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥨 <span data-en="Pretzels & Party Bread" data-de="Brezel & Partybrot">Pretzels & Party Bread</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Beer Pretzel" data-de="Bierbrezel">Beer Pretzel</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Pretzel" data-de="Laugenbrezel">Pretzel</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Party Pretzel XXL" data-de="Party-Laugenbrezel XXL">Party Pretzel XXL</div><div class="menu-item-desc" data-en="Pre order only" data-de="Auf Vorbestellung">Pre order only</div></div><div class="menu-item-price">180 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Party Pretzel XXL filled 1kg" data-de="Partylaugenbrezel XXL 1kg gefüllt">Party Pretzel XXL filled 1kg</div><div class="menu-item-desc" data-en="Filled with salami, ham, cheese, eggs, tomatoes – pre order only" data-de="Mit Salami, Schinken, Käse, Eier, Tomaten (auf Vorbestellung)">Filled with salami, ham, cheese, eggs, tomatoes – pre order only</div></div><div class="menu-item-price">490 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Party Bread/Flower 7 pcs" data-de="Party-Brot/Blume 7 Stk">Party Bread/Flower 7 pcs</div></div><div class="menu-item-price">170 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Party Bread/Flower 18 pcs" data-de="Party-Brot/Blume 18 Stk">Party Bread/Flower 18 pcs</div></div><div class="menu-item-price">390 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥐 <span data-en="Sweet Pastries" data-de="Süße Stücke">Sweet Pastries</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Small Braided Yeast Loaf" data-de="Kleiner Zopf">Small Braided Yeast Loaf</div><div class="menu-item-desc" data-en="With or without raisins" data-de="Mit oder ohne Rosinen">With or without raisins</div></div><div class="menu-item-price">50 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Large Braided Yeast Loaf" data-de="Großer Zopf">Large Braided Yeast Loaf</div><div class="menu-item-desc" data-en="With or without raisins" data-de="Mit oder ohne Rosinen">With or without raisins</div></div><div class="menu-item-price">150 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Currant Roll" data-de="Rosinenbrötchen">Currant Roll</div></div><div class="menu-item-price">50 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Donut with Jam" data-de="Krapfen (mit Marmelade)">Donut with Jam</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Donut with cream & seasonal fruits" data-de="Krapfen mit Sahne & Früchten">Donut with cream & seasonal fruits</div></div><div class="menu-item-price">150 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Donut with Vanilla" data-de="Krapfen (mit Vanille)">Donut with Vanilla</div></div><div class="menu-item-price">120 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOUPS & SALADS -->
+      <div id="menu-soups" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥣 <span data-en="Soups" data-de="Suppen">Soups</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Beef Strudle Soup" data-de="Fleischstrudelsuppe">Beef Strudle Soup</div></div><div class="menu-item-price">250 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Clear Beef Soup" data-de="Rindssuppe klar">Clear Beef Soup</div><div class="menu-item-desc" data-en="With pancake strips, semolina dumpling or bacon dumpling" data-de="Mit Frittaten od. Grießnockerl od. Speckknödel">With pancake strips, semolina dumpling or bacon dumpling</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Vegetable Soup" data-de="Gemüsesuppe">Vegetable Soup</div></div><div class="menu-item-price">230 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Cucumber Cream Soup" data-de="Gurkencremesuppe">Cucumber Cream Soup</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Broccoli Cream Soup" data-de="Brokkolicremesuppe">Broccoli Cream Soup</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Tomato Cream Soup" data-de="Tomatencremesuppe">Tomato Cream Soup</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Zuccini Cream Soup" data-de="Zucchinicremesuppe">Zuccini Cream Soup</div></div><div class="menu-item-price">190 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Mushroom Cream Soup" data-de="Champignoncremesuppe">Mushroom Cream Soup</div></div><div class="menu-item-price">230 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥗 <span data-en="Salads" data-de="Salate">Salads</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Potato Salad" data-de="Kartoffelsalat">Potato Salad</div></div><div class="menu-item-price">110 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Potato Salad with pumpkin seed oil" data-de="Kartoffelsalat mit Kürbiskern-Öl">Potato Salad with pumpkin seed oil</div></div><div class="menu-item-price">140 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Mixed Salad (Big)" data-de="Gemischter Salat (Groß)">Mixed Salad (Big)</div></div><div class="menu-item-price">180 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Greek Salad (Big)" data-de="Griechischer Salat (Groß)">Greek Salad (Big)</div><div class="menu-item-desc" data-en="With Feta cheese" data-de="Mit Feta-Käse">With Feta cheese</div></div><div class="menu-item-price">350 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Green Salad" data-de="Grüner Salat">Green Salad</div></div><div class="menu-item-price">80 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Green Salad with pumpkin seed oil" data-de="Grüner Salat mit Kürbiskern-Öl">Green Salad with pumpkin seed oil</div></div><div class="menu-item-price">110 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN COURSE -->
+      <div id="menu-mains" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥩 <span data-en="Main Course – With Meat" data-de="Hauptspeisen – Mit Fleisch">Main Course – With Meat</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Goulash" data-de="Gulasch">Goulash</div><div class="menu-item-desc" data-en="With spaetzle or bread dumplings" data-de="Mit Spätzle od. Serviettenknödel">With spaetzle or bread dumplings</div></div><div class="menu-item-price">520 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Beef Schnitzel" data-de="Rindsschnitzel">Beef Schnitzel</div><div class="menu-item-desc" data-en="With spaetzle or bread dumplings" data-de="Mit Spätzle od. Serviettenknödel">With spaetzle or bread dumplings</div></div><div class="menu-item-price">520 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Beef Roulade" data-de="Rindsrouladen">Beef Roulade</div><div class="menu-item-desc" data-en="With red cabbage & spaetzle" data-de="Mit Rotkohl & Spätzle">With red cabbage & spaetzle</div></div><div class="menu-item-price">590 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Gypsy Schnitzel" data-de="Zigeunerschnitzel">Gypsy Schnitzel</div><div class="menu-item-desc" data-en="With rice" data-de="Mit Reis">With rice</div></div><div class="menu-item-price">420 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Turkey Schnitzel Baked" data-de="Putenschnitzel Gebacken">Turkey Schnitzel Baked</div><div class="menu-item-desc" data-en="With rice or French fries" data-de="Mit Reis od. Pommes">With rice or French fries</div></div><div class="menu-item-price">420 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Turkey Schnitzel Grilled" data-de="Putenschnitzel Gegrillt">Turkey Schnitzel Grilled</div><div class="menu-item-desc" data-en="With pea rice & vegetables" data-de="Mit Erbsenreis & Gemüse">With pea rice & vegetables</div></div><div class="menu-item-price">450 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Mushroom Schnitzel" data-de="Champignonschnitzel">Mushroom Schnitzel</div><div class="menu-item-desc" data-en="With spaetzle" data-de="Mit Spätzle">With spaetzle</div></div><div class="menu-item-price">450 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Breaded Chicken Schnitzel" data-de="Hänchenschnitzel Paniert">Breaded Chicken Schnitzel</div><div class="menu-item-desc" data-en="With vegetable rice or French fries" data-de="Mit Gemüsereis od. Pommes">With vegetable rice or French fries</div></div><div class="menu-item-price">350 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Stirian Cordon Bleu" data-de="Steirisches Cordon Bleu">Stirian Cordon Bleu</div><div class="menu-item-desc" data-en="With pumpkin seed breading, parsley potatoes or rice or French fries" data-de="Mit Kürbiskernpanade, Petersilienkartoffeln od. Reis od. Pommes">With pumpkin seed breading, parsley potatoes or rice or French fries</div></div><div class="menu-item-price">590 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Turkey Cordon Bleu" data-de="Puten Cordon Bleu">Turkey Cordon Bleu</div><div class="menu-item-desc" data-en="With rice or French fries & vegetables" data-de="Mit Reis od. Pommes & Gemüse">With rice or French fries & vegetables</div></div><div class="menu-item-price">520 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Turkey Stripes on Salad (Big)" data-de="Putenstreifen auf Salat (Groß)">Turkey Stripes on Salad (Big)</div><div class="menu-item-desc" data-en="Grilled or baked" data-de="Gegrillt oder gebacken">Grilled or baked</div></div><div class="menu-item-price">520 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🍝 <span data-en="Pasta" data-de="Nudeln">Pasta</span></h2>
+          <div class="menu-category-sub" data-en="All pasta dishes available with Penne, Spaghetti or Fusilli" data-de="Alle Nudelgerichte wählbar mit Penne, Spaghetti oder Fusilli">All pasta dishes available with Penne, Spaghetti or Fusilli</div>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Bolognese</div><div class="menu-item-desc" data-en="With minced meat sauce" data-de="Mit Hackfleischsauce">With minced meat sauce</div></div><div class="menu-item-price">350 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Carbonara</div><div class="menu-item-desc" data-en="Ham, cheese & cream sauce" data-de="Schinken-Käse-Sahnesauce">Ham, cheese & cream sauce</div></div><div class="menu-item-price">390 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Napoli</div><div class="menu-item-desc" data-en="Tomato sauce" data-de="Tomatensauce">Tomato sauce</div></div><div class="menu-item-price">250 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Tuna" data-de="Thunfisch">Tuna</div></div><div class="menu-item-price">290 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VEGETARIAN -->
+      <div id="menu-vegetarian" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥦 <span data-en="Vegetarian" data-de="Vegetarisch">Vegetarian</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Breaded Mushrooms" data-de="Panierte Champignons">Breaded Mushrooms</div><div class="menu-item-desc" data-en="With tartar sauce and salad" data-de="Mit Sauce Tartare & Salat">With tartar sauce and salad</div></div><div class="menu-item-price">450 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Courgette/Zucchini" data-de="Zucchini">Courgette/Zucchini</div><div class="menu-item-desc" data-en="Breaded or grilled, with tartar sauce, potatoes & salad" data-de="Paniert od. gegrillt, mit Sauce Tartare, Petersilienkartoffeln & Salat">Breaded or grilled, with tartar sauce, potatoes & salad</div></div><div class="menu-item-price">290 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Roasted Bread Dumplings" data-de="Geröstete Semmelknödel">Roasted Bread Dumplings</div><div class="menu-item-desc" data-en="With egg & mixed salad" data-de="Mit Ei & gemischten Salat">With egg & mixed salad</div></div><div class="menu-item-price">320 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Cheese Spaetzle" data-de="Käsespätzle">Cheese Spaetzle</div></div><div class="menu-item-price">390 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Egg Dumplings" data-de="Eiernockerl">Egg Dumplings</div><div class="menu-item-desc" data-en="Austrian style egg noodles, served with mixed salad" data-de="Mit gemischten Salat">Austrian style egg noodles, served with mixed salad</div></div><div class="menu-item-price">290 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Spinach Pasta" data-de="Spinatnudeln">Spinach Pasta</div></div><div class="menu-item-price">290 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Fried Vegetables" data-de="Gemüse-Pfanne">Fried Vegetables</div><div class="menu-item-desc" data-en="With vegetable cream sauce" data-de="Mit Gemüserahmsauce">With vegetable cream sauce</div></div><div class="menu-item-price">320 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Fried Cheese" data-de="Gebackener Käse">Fried Cheese</div><div class="menu-item-desc" data-en="With cranberries" data-de="Mit Preiselbeeren">With cranberries</div></div><div class="menu-item-price">350 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥗 <span data-en="Sides" data-de="Beilagen">Sides</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Red Cabbage" data-de="Rotkohl">Red Cabbage</div></div><div class="menu-item-price">120 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="White Cabbage (Sweet)" data-de="Weisskohl (süß)">White Cabbage (Sweet)</div></div><div class="menu-item-price">120 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Potato Fritters" data-de="Kartoffelpuffer">Potato Fritters</div></div><div class="menu-item-price">90 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Mashed Potatoes" data-de="Kartoffelpüree">Mashed Potatoes</div></div><div class="menu-item-price">120 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="French Fries" data-de="Pommes Frites">French Fries</div></div><div class="menu-item-price">90 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Vegetable Rice" data-de="Gemüsereis">Vegetable Rice</div></div><div class="menu-item-price">110 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Roasted Potatoes" data-de="Röstkartoffeln">Roasted Potatoes</div></div><div class="menu-item-price">110 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Parsley Potatoes" data-de="Petersilienkartoffeln">Parsley Potatoes</div></div><div class="menu-item-price">110 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELI COUNTER -->
+      <div id="menu-deli" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">🌡️ <span data-en="Warm Deli Counter" data-de="Warme Theke">Warm Deli Counter</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Bavarian Meat Loaf Roll" data-de="Leberkäs-Semmel">Bavarian Meat Loaf Roll</div></div><div class="menu-item-price">150 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Meat Patty Roll" data-de="Fleischlaibchen-Semmel">Meat Patty Roll</div></div><div class="menu-item-price">150 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Turkey Schnitzel Roll" data-de="Putenschnitzel-Semmel">Turkey Schnitzel Roll</div></div><div class="menu-item-price">170 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Chicken Schnitzel Roll" data-de="Hähnchenschnitzel-Semmel">Chicken Schnitzel Roll</div></div><div class="menu-item-price">150 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">❄️ <span data-en="Cold Deli Counter" data-de="Kalte Theke">Cold Deli Counter</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Apple Strudel" data-de="Apfelstrudel">Apple Strudel</div></div><div class="menu-item-price">160 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Curd Cheese Strudel" data-de="Topfenstrudel">Curd Cheese Strudel</div></div><div class="menu-item-price">160 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Assorted Cakes" data-de="Verschiedene Torten">Assorted Cakes</div></div><div class="menu-item-price">150 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Swiss Rolls" data-de="Biskuitrouladen">Swiss Rolls</div></div><div class="menu-item-price">110 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Cardinal Slice" data-de="Kardinalschnitten">Cardinal Slice</div><div class="menu-item-desc" data-en="Traditional Austrian cake" data-de="Traditionelle österreichische Torte">Traditional Austrian cake</div></div><div class="menu-item-price">180 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Bread Roll with cheese or cold cut & tomatoes" data-de="Belegte Semmeln">Bread Roll with cheese or cold cut & tomatoes</div></div><div class="menu-item-price">120 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Filled Baguette with cheese or cold cut & tomatoes" data-de="Belegtes Baguette">Filled Baguette with cheese or cold cut & tomatoes</div></div><div class="menu-item-price">130 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🥙 <span data-en="Kebab Station" data-de="Kebab-Station">Kebab Station</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Kebab Roll" data-de="Kebab XXL">Kebab Roll</div></div><div class="menu-item-price">230 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Kebab Plate" data-de="Kebab Teller">Kebab Plate</div></div><div class="menu-item-price">350 LE</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DRINKS -->
+      <div id="menu-drinks" class="menu-section">
+        <div class="menu-category">
+          <h2 class="menu-category-title">☕ <span data-en="Hot Drinks" data-de="Heiße Getränke">Hot Drinks</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Tea" data-de="Tee">Tea</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Americano" data-de="Kaffee">Americano</div></div><div class="menu-item-price">90 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Cappuccino</div></div><div class="menu-item-price">90 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Latté" data-de="Latte Macciato">Latté</div></div><div class="menu-item-price">90 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Espresso</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Hot Chocolate" data-de="Kakao">Hot Chocolate</div></div><div class="menu-item-price">90 LE</div></div>
+          </div>
+        </div>
+        <div class="menu-category">
+          <h2 class="menu-category-title">🧊 <span data-en="Cold Drinks" data-de="Kalte Getränke">Cold Drinks</span></h2>
+          <div class="menu-items">
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Water Still" data-de="Wasser Still">Water Still</div></div><div class="menu-item-price">20 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Water Sparkling" data-de="Wasser mit Kohlensäure">Water Sparkling</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Schweppes</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Cola, Fanta, Sprite</div></div><div class="menu-item-price">60 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name" data-en="Small Juice Carton" data-de="Saft Tetra Pack Klein">Small Juice Carton</div></div><div class="menu-item-price">30 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Monster Energy Drink</div></div><div class="menu-item-price">110 LE</div></div>
+            <div class="menu-item"><div class="menu-item-info"><div class="menu-item-name">Red Bull</div></div><div class="menu-item-price">130 LE</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Heart of Styria</div>
+    <p data-en="Austrian Bakery & Restaurant · Hurghada" data-de="Österreichische Bäckerei & Restaurant · Hurghada">Austrian Bakery & Restaurant · Hurghada</p>
+  </footer>
+</div>
+
+<!-- ===== GALLERY PAGE ===== -->
+<div id="page-gallery" class="page">
+  <div class="gallery-hero">
+    <h1 data-en="Our <em>Gallery</em>" data-de="Unsere <em>Galerie</em>">Our <em>Gallery</em></h1>
+    <p style="color:rgba(255,255,255,.4);margin-top:.8rem;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase" data-en="Moments, flavors and memories" data-de="Momente, Aromen und Erinnerungen">Moments, flavors and memories</p>
+  </div>
+  <div class="gallery-content">
+    <div class="gallery-placeholder">
+      <span class="section-eyebrow" data-en="Coming soon" data-de="Demnächst">Coming soon</span>
+      <h2 class="section-title" data-en="A window into our <em>world</em>" data-de="Ein Fenster in unsere <em>Welt</em>">A window into our <em>world</em></h2>
+      <div class="section-divider" style="margin:1rem auto"></div>
+      <p style="color:#888;max-width:500px;margin:0 auto;line-height:1.8;font-size:.9rem" data-en="This gallery will showcase our restaurant, bakery, events and the joy of Austrian hospitality in Hurghada. Check back soon for beautiful photos!" data-de="Diese Galerie wird unser Restaurant, unsere Bäckerei, Events und die Freude österreichischer Gastfreundschaft in Hurghada zeigen. Schauen Sie bald wieder vorbei!">This gallery will showcase our restaurant, bakery, events and the joy of Austrian hospitality in Hurghada. Check back soon for beautiful photos!</p>
+      <div class="gallery-grid-placeholder">
+        <div class="gallery-cell">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="17" r="4"/><path d="M4 28l8-8 6 6 5-5 13 9"/></svg>
+          <span data-en="Restaurant" data-de="Restaurant">Restaurant</span>
+        </div>
+        <div class="gallery-cell">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="17" r="4"/><path d="M4 28l8-8 6 6 5-5 13 9"/></svg>
+          <span data-en="Bakery" data-de="Bäckerei">Bakery</span>
+        </div>
+        <div class="gallery-cell">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="17" r="4"/><path d="M4 28l8-8 6 6 5-5 13 9"/></svg>
+          <span data-en="Events" data-de="Veranstaltungen">Events</span>
+        </div>
+        <div class="gallery-cell">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="17" r="4"/><path d="M4 28l8-8 6 6 5-5 13 9"/></svg>
+          <span data-en="Food" data-de="Speisen">Food</span>
+        </div>
+        <div class="gallery-cell">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="17" r="4"/><path d="M4 28l8-8 6 6 5-5 13 9"/></svg>
+          <span data-en="Pastries" data-de="Gebäck">Pastries</span>
+        </div>
+        <div class="gallery-cell">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="32" height="24" rx="3"/><circle cx="14" cy="17" r="4"/><path d="M4 28l8-8 6 6 5-5 13 9"/></svg>
+          <span data-en="Coffee" data-de="Kaffee">Coffee</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Heart of Styria</div>
+    <p data-en="Austrian Bakery & Restaurant · Hurghada" data-de="Österreichische Bäckerei & Restaurant · Hurghada">Austrian Bakery & Restaurant · Hurghada</p>
+  </footer>
+</div>
+
+<!-- ===== REVIEWS PAGE ===== -->
+<div id="page-reviews" class="page">
+  <div class="reviews-hero">
+    <h1 data-en="Guest <em>Reviews</em>" data-de="Gäste<em>bewertungen</em>">Guest <em>Reviews</em></h1>
+    <p style="color:rgba(255,255,255,.4);margin-top:.8rem;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase" data-en="What our guests say" data-de="Was unsere Gäste sagen">What our guests say</p>
+  </div>
+  <div class="reviews-content">
+    <div class="reviews-inner">
+      <div class="overall-rating">
+        <div class="overall-score">4.9</div>
+        <div class="stars-display">★★★★★</div>
+        <p style="color:#888;font-size:.88rem;margin-top:.3rem" data-en="Based on Google Maps Reviews" data-de="Basierend auf Google Maps Bewertungen">Based on Google Maps Reviews</p>
+        <div class="rating-source" style="margin-top:.8rem">
+          <a href="https://www.google.com/maps/place/Heart+of+Styria,+Austrian+bakery+and+restaurant/@27.1961628,33.8215864,17z" target="_blank" style="color:var(--gold);text-decoration:none" data-en="View on Google Maps →" data-de="Auf Google Maps ansehen →">View on Google Maps →</a>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar">M</div>
+            <div><div class="reviewer-name">Markus W.</div><div class="reviewer-date" data-en="March 2025" data-de="März 2025">March 2025</div></div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text" data-en="Absolutely amazing! Found a piece of home in Hurghada. The Kaiser rolls taste exactly like back in Austria, and the coffee is perfect. We come here every morning during our holiday." data-de="Absolut wunderbar! Ein Stück Heimat in Hurghada gefunden. Die Kaisersemmeln schmecken genau wie in Österreich, und der Kaffee ist perfekt. Wir kommen jeden Morgen im Urlaub hierher.">"Absolutely amazing! Found a piece of home in Hurghada. The Kaiser rolls taste exactly like back in Austria, and the coffee is perfect. We come here every morning during our holiday."</div>
+          <div class="review-platform">Google Maps</div>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--mint),var(--green))">S</div>
+            <div><div class="reviewer-name">Sarah K.</div><div class="reviewer-date" data-en="February 2025" data-de="Februar 2025">February 2025</div></div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text" data-en="The Apfelstrudel was divine! Crispy, warm, with a generous vanilla sauce. The staff are incredibly warm and welcoming. This place is a hidden gem in Hurghada." data-de="Der Apfelstrudel war göttlich! Knusprig, warm, mit großzügiger Vanillesoße. Das Personal ist unglaublich herzlich und einladend. Dieses Lokal ist ein verstecktes Juwel in Hurghada.">"The Apfelstrudel was divine! Crispy, warm, with a generous vanilla sauce. The staff are incredibly warm and welcoming. This place is a hidden gem in Hurghada."</div>
+          <div class="review-platform">Google Maps</div>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--peach),var(--gold))">T</div>
+            <div><div class="reviewer-name">Thomas R.</div><div class="reviewer-date" data-en="January 2025" data-de="Januar 2025">January 2025</div></div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text" data-en="The Schnitzel was perfectly breaded, crispy and generous. The spaetzle were homemade quality. A true Austrian restaurant experience — you won't believe you're in Egypt!" data-de="Das Schnitzel war perfekt paniert, knusprig und großzügig. Die Spätzle hatten Hausmannskost-Qualität. Ein echtes österreichisches Restaurantgefühl — man glaubt kaum, in Ägypten zu sein!">"The Schnitzel was perfectly breaded, crispy and generous. The spaetzle were homemade quality. A true Austrian restaurant experience — you won't believe you're in Egypt!"</div>
+          <div class="review-platform">Google Maps</div>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,var(--cream),var(--gold))">A</div>
+            <div><div class="reviewer-name">Anna L.</div><div class="reviewer-date" data-en="April 2025" data-de="April 2025">April 2025</div></div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text" data-en="We had breakfast here every single day of our two-week vacation. The Big Breakfast is incredible value. The bread is baked fresh, you can smell it from the street. So cozy and homely!" data-de="Wir haben hier jeden Tag unseres zweiwöchigen Urlaubs gefrühstückt. Das Große Frühstück ist ein unglaubliches Preis-Leistungs-Verhältnis. Das Brot ist frisch gebacken, man riecht es von der Straße. So gemütlich und heimelig!">"We had breakfast here every single day of our two-week vacation. The Big Breakfast is incredible value. The bread is baked fresh, you can smell it from the street. So cozy and homely!"</div>
+          <div class="review-platform">Google Maps</div>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,#96C5B0,#6CAE75)">P</div>
+            <div><div class="reviewer-name">Peter G.</div><div class="reviewer-date" data-en="May 2025" data-de="Mai 2025">May 2025</div></div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text" data-en="As an Austrian living abroad, finding Heart of Styria was emotional. The Kaiserschmarrn brought tears to my eyes — exactly how my grandmother made it. Exceptional quality and service." data-de="Als Österreicher im Ausland war das Finden von Heart of Styria emotional. Der Kaiserschmarrn brachte mir Tränen in die Augen — genau so, wie ihn meine Großmutter gemacht hat. Außergewöhnliche Qualität und Service.">"As an Austrian living abroad, finding Heart of Styria was emotional. The Kaiserschmarrn brought tears to my eyes — exactly how my grandmother made it. Exceptional quality and service."</div>
+          <div class="review-platform">Google Maps</div>
+        </div>
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,#FFD275,#E8AE68)">J</div>
+            <div><div class="reviewer-name">Julia M.</div><div class="reviewer-date" data-en="June 2025" data-de="Juni 2025">June 2025</div></div>
+          </div>
+          <div class="review-stars">★★★★★</div>
+          <div class="review-text" data-en="The kids absolutely loved the Kids Breakfast with the heart-shaped pancakes! My husband and I had the Big Breakfast and were completely satisfied. Clean, cozy atmosphere. Highly recommend!" data-de="Die Kinder liebten das Kinderfrühstück mit den herzförmigen Pfannkuchen! Mein Mann und ich hatten das Große Frühstück und waren vollständig zufrieden. Saubere, gemütliche Atmosphäre. Sehr empfehlenswert!">"The kids absolutely loved the Kids Breakfast with the heart-shaped pancakes! My husband and I had the Big Breakfast and were completely satisfied. Clean, cozy atmosphere. Highly recommend!"</div>
+          <div class="review-platform">Google Maps</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem">
+        <a href="https://www.google.com/maps/place/Heart+of+Styria,+Austrian+bakery+and+restaurant/@27.1961628,33.8215864,17z" target="_blank" class="btn-primary" style="display:inline-block" data-en="Read more reviews on Google →" data-de="Mehr Bewertungen auf Google lesen →">Read more reviews on Google →</a>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Heart of Styria</div>
+    <p data-en="Austrian Bakery & Restaurant · Hurghada" data-de="Österreichische Bäckerei & Restaurant · Hurghada">Austrian Bakery & Restaurant · Hurghada</p>
+  </footer>
+</div>
+
+<!-- ===== STORY PAGE ===== -->
+<div id="page-story" class="page">
+  <div class="story-hero">
+    <h1 data-en="Our <em>Story</em>" data-de="Unsere <em>Geschichte</em>">Our <em>Story</em></h1>
+    <p data-en="Where the Alps meet the Red Sea — a journey of love, bread, and culture" data-de="Wo die Alpen auf das Rote Meer treffen — eine Reise voller Liebe, Brot und Kultur">Where the Alps meet the Alps meet the Red Sea — a journey of love, bread, and culture</p>
+  </div>
+  <div class="story-content">
+    <div class="story-inner">
+      <div class="story-switch">
+        <button class="active" onclick="switchStory('combined')" data-en="Full Story" data-de="Ganze Geschichte">Full Story</button>
+        <button onclick="switchStory('austria')" data-en="Austria" data-de="Österreich">Austria</button>
+        <button onclick="switchStory('hurghada')" data-en="Hurghada" data-de="Hurghada">Hurghada</button>
+      </div>
+
+      <!-- COMBINED STORY -->
+      <div id="story-combined" class="story-view active">
+        <div class="story-section">
+          <h2 data-en="Where <em>Two Worlds</em> Meet" data-de="Wo <em>zwei Welten</em> sich begegnen">Where <em>Two Worlds</em> Meet</h2>
+          <p data-en="Heart of Styria was born from a simple but powerful idea: to bring the warmth of Austrian baking tradition to the sun-drenched shores of Hurghada. Styria — a lush, green region in the heart of Austria — is known for its rolling hills, pumpkin seed oil, and deeply rooted food culture. It is from this place of warmth and craftsmanship that we draw our inspiration." data-de="Heart of Styria entstand aus einer einfachen, aber kraftvollen Idee: die Wärme der österreichischen Backtradition an die sonnenverwöhnten Ufer von Hurghada zu bringen. Die Steiermark — eine üppige, grüne Region im Herzen Österreichs — ist bekannt für ihre sanften Hügel, Kürbiskernöl und tief verwurzelte Esskultur. Aus diesem Ort der Wärme und des Handwerks schöpfen wir unsere Inspiration.">Heart of Styria was born from a simple but powerful idea: to bring the warmth of Austrian baking tradition to the sun-drenched shores of Hurghada. Styria — a lush, green region in the heart of Austria — is known for its rolling hills, pumpkin seed oil, and deeply rooted food culture. It is from this place of warmth and craftsmanship that we draw our inspiration.</p>
+          <div class="story-quote" data-en='"Freshly baked with love and care, the taste of home is waiting here."' data-de='"Frisch gebacken mit Liebe und bedacht, ein Stück Zuhause, mit Herz gemacht."'>"Freshly baked with love and care, the taste of home is waiting here."</div>
+          <p data-en="Hurghada — Egypt's beloved Red Sea resort city — welcomed us with open arms. A place where European tourists come to relax, dive, and escape the cold winters of the north. Many of them longed for a familiar taste, a morning roll, a proper cup of coffee, a schnitzel that reminded them of home. We answered that call." data-de="Hurghada — Ägyptens geliebte Rotmeer-Ferienstadt — empfing uns mit offenen Armen. Ein Ort, an dem europäische Touristen entspannen, tauchen und den kalten Wintern des Nordens entkommen. Viele von ihnen sehnten sich nach einem vertrauten Geschmack, einem Morgenbrötchen, einer richtigen Tasse Kaffee, einem Schnitzel, das sie an zu Hause erinnerte. Wir haben diesen Ruf beantwortet.">Hurghada — Egypt's beloved Red Sea resort city — welcomed us with open arms. A place where European tourists come to relax, dive, and escape the cold winters of the north. Many of them longed for a familiar taste, a morning roll, a proper cup of coffee, a schnitzel that reminded them of home. We answered that call.</p>
+        </div>
+        <div class="story-highlights">
+          <div class="highlight-item">
+            <div class="highlight-icon">🏔️</div>
+            <h4 data-en="Austrian Heritage" data-de="Österreichisches Erbe">Austrian Heritage</h4>
+            <p data-en="Traditional recipes from the green heart of Austria" data-de="Traditionelle Rezepte aus dem grünen Herzen Österreichs">Traditional recipes from the green heart of Austria</p>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">🌊</div>
+            <h4 data-en="Red Sea Setting" data-de="Rotmeer-Umgebung">Red Sea Setting</h4>
+            <p data-en="Fresh flavours enjoyed in the warmth of Hurghada" data-de="Frische Aromen genossen in der Wärme Hurghadas">Fresh flavours enjoyed in the warmth of Hurghada</p>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">❤️</div>
+            <h4 data-en="Made with Love" data-de="Mit Liebe gemacht">Made with Love</h4>
+            <p data-en="Every item baked fresh, every dish prepared with care" data-de="Jedes Stück frisch gebacken, jedes Gericht mit Sorgfalt zubereitet">Every item baked fresh, every dish prepared with care</p>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-icon">🤝</div>
+            <h4 data-en="Community & Warmth" data-de="Gemeinschaft & Wärme">Community & Warmth</h4>
+            <p data-en="A meeting place for all who love good food and good company" data-de="Ein Treffpunkt für alle, die gutes Essen und gute Gesellschaft lieben">A meeting place for all who love good food and good company</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUSTRIA STORY -->
+      <div id="story-austria" class="story-view">
+        <div class="story-section">
+          <h2 data-en="The <em>Heart</em> of Styria" data-de="Das <em>Herz</em> der Steiermark">The <em>Heart</em> of Styria</h2>
+          <p data-en="Styria is Austria's second-largest state, nestled between the Alps and the gentle hills of the south. It is a land of farmers' markets, forest walks, and Heuriger — the beloved wine taverns where locals gather to eat, drink and share stories. The baking tradition here runs deep: sourdough breads, hearty rolls, sweet pastries for celebrations." data-de="Die Steiermark ist Österreichs zweitgrößtes Bundesland, eingebettet zwischen den Alpen und den sanften Hügeln des Südens. Es ist ein Land der Bauernmärkte, Waldwanderungen und Heurigen — der geliebten Weingasthäuser, wo Einheimische zusammenkommen, um zu essen, zu trinken und Geschichten zu teilen. Die Backtradition hier hat tiefe Wurzeln: Sauerteigbrote, herzhafte Semmeln, süßes Gebäck für Feste.">Styria is Austria's second-largest state, nestled between the Alps and the gentle hills of the south. It is a land of farmers' markets, forest walks, and Heuriger — the beloved wine taverns where locals gather to eat, drink and share stories. The baking tradition here runs deep: sourdough breads, hearty rolls, sweet pastries for celebrations.</p>
+          <p data-en="The Viennese coffee house culture — declared UNESCO Intangible Cultural Heritage — has spread its influence throughout Austria. A proper Wiener Kaffee, a slice of cake, and unhurried time: this is the Austrian way. We carry all of this with us across the Mediterranean, through the Suez, and to the shores of the Red Sea." data-de="Die Wiener Kaffeehauskultur — von der UNESCO als immaterielles Kulturerbe anerkannt — hat ihren Einfluss in ganz Österreich verbreitet. Ein richtiger Wiener Kaffee, ein Stück Kuchen und ungetriebene Zeit: Das ist die österreichische Lebensart. Das alles tragen wir mit uns durch das Mittelmeer, durch den Suez und zu den Ufern des Roten Meeres.">The Viennese coffee house culture — declared UNESCO Intangible Cultural Heritage — has spread its influence throughout Austria. A proper Wiener Kaffee, a slice of cake, and unhurried time: this is the Austrian way. We carry all of this with us across the Mediterranean, through the Suez, and to the shores of the Red Sea.</p>
+          <div class="story-quote" data-en='"Austria gave us the recipes. Hurghada gives us the sunshine. Together, we make Heart of Styria."' data-de='"Österreich gab uns die Rezepte. Hurghada gibt uns den Sonnenschein. Gemeinsam machen wir Heart of Styria."'>"Austria gave us the recipes. Hurghada gives us the sunshine. Together, we make Heart of Styria."</div>
+        </div>
+      </div>
+
+      <!-- HURGHADA STORY -->
+      <div id="story-hurghada" class="story-view">
+        <div class="story-section">
+          <h2 data-en="Hurghada — <em>Our Home</em>" data-de="Hurghada — <em>Unser Zuhause</em>">Hurghada — <em>Our Home</em></h2>
+          <p data-en="Hurghada is one of Egypt's most vibrant resort cities, stretching along 40 kilometres of the Red Sea coast. Known for world-class diving, crystal-clear waters and year-round sunshine, it attracts millions of visitors from across Europe and beyond. For many Austrian, German and Swiss tourists, Hurghada is the go-to winter escape." data-de="Hurghada ist eine der lebendigsten Ferienorte Ägyptens, der sich über 40 Kilometer der Roten Meerküste erstreckt. Bekannt für erstklassiges Tauchen, kristallklares Wasser und ganzjährigen Sonnenschein, zieht es Millionen von Besuchern aus Europa und darüber hinaus an. Für viele österreichische, deutsche und Schweizer Touristen ist Hurghada das bevorzugte Winterfluchtort.">Hurghada is one of Egypt's most vibrant resort cities, stretching along 40 kilometres of the Red Sea coast. Known for world-class diving, crystal-clear waters and year-round sunshine, it attracts millions of visitors from across Europe and beyond. For many Austrian, German and Swiss tourists, Hurghada is the go-to winter escape.</p>
+          <p data-en="We are located in the Touristic Villages area — the heart of Hurghada's vibrant hospitality district. Our doors are open every day, ready to welcome you with the smell of fresh bread, the warmth of good coffee, and a menu that bridges two cultures." data-de="Wir befinden uns im Bereich Touristic Villages — dem Herzen von Hurghadas lebhaftem Gastgewerbeviertel. Unsere Türen sind täglich geöffnet und empfangen Sie mit dem Duft von frischem Brot, der Wärme von gutem Kaffee und einer Speisekarte, die zwei Kulturen verbindet.">We are located in the Touristic Villages area — the heart of Hurghada's vibrant hospitality district. Our doors are open every day, ready to welcome you with the smell of fresh bread, the warmth of good coffee, and a menu that bridges two cultures.</p>
+          <div class="story-quote" data-en='"Between the mountains of Styria and the waters of the Red Sea, there is Heart of Styria — always open, always warm."' data-de='"Zwischen den Bergen der Steiermark und den Gewässern des Roten Meeres liegt Heart of Styria — immer geöffnet, immer herzlich."'>"Between the mountains of Styria and the waters of the Red Sea, there is Heart of Styria — always open, always warm."</div>
+        </div>
+        <div style="text-align:center;margin-top:2rem">
+          <a href="https://www.google.com/maps/place/Heart+of+Styria,+Austrian+bakery+and+restaurant/@27.1961628,33.8215864,17z" target="_blank" class="btn-primary" data-en="Find us on Maps →" data-de="Auf Karte finden →">Find us on Maps →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-logo">Heart of Styria</div>
+    <p data-en="Austrian Bakery & Restaurant · Metro Street, Touristic Villages, Hurghada" data-de="Österreichische Bäckerei & Restaurant · Metro Street, Touristic Villages, Hurghada">Austrian Bakery & Restaurant · Metro Street, Touristic Villages, Hurghada</p>
+    <p style="margin-top:.5rem"><a href="https://www.facebook.com/share/p/1KzieJRSiZ/" target="_blank">Facebook</a> · <a href="tel:01038135123">01038135123</a></p>
+  </footer>
+</div>
+
+<script>
+// ---- LANGUAGE ----
+let lang='en';
+function toggleLang(){
+  lang=lang==='en'?'de':'en';
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const key=`data-${lang}`;
+    if(el.hasAttribute(key)){
+      if(el.tagName==='INPUT'||el.tagName==='BUTTON'){el.value=el.getAttribute(key);}
+      else{el.innerHTML=el.getAttribute(key);}
+    }
+  });
+  document.querySelectorAll('#lang-toggle,#lang-toggle-mobile,#lang-toggle-mob2').forEach(el=>{
+    if(el.id==='lang-toggle-mob2'){el.textContent=lang==='en'?'Deutsch':'English';}
+    else{el.textContent=lang==='en'?'DE':'EN';}
+  });
+  document.documentElement.lang=lang;
+}
+
+// ---- PAGES ----
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('data-page')===name);
+  });
+  // trigger animations for new page
+  setTimeout(initReveal,100);
+  setTimeout(initStats,200);
+}
+
+// ---- MENU TABS ----
+function setMenuTab(tab){
+  document.querySelectorAll('.menu-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.menu-section').forEach(s=>s.classList.remove('active'));
+  const tabEl=document.querySelector(`.menu-tab[onclick="setMenuTab('${tab}')"]`);
+  if(tabEl)tabEl.classList.add('active');
+  const sec=document.getElementById('menu-'+tab);
+  if(sec)sec.classList.add('active');
+}
+
+// ---- STORY SWITCH ----
+function switchStory(view){
+  document.querySelectorAll('.story-view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.story-switch button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('story-'+view).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ---- NAV SCROLL ----
+window.addEventListener('scroll',()=>{
+  document.getElementById('main-nav').classList.toggle('scrolled',window.scrollY>50);
+});
+
+// ---- MOBILE MENU ----
+function toggleMobile(){
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+
+// ---- SCROLL TO FEATURES ----
+function scrollToFeatures(){
+  document.getElementById('features').scrollIntoView({behavior:'smooth'});
+}
+
+// ---- PARTICLES ----
+function initParticles(){
+  const c=document.getElementById('particles');
+  if(!c)return;
+  const colors=['#E8AE68','#FFD275','#E3A587','#96C5B0','#6CAE75','#F2D492'];
+  for(let i=0;i<25;i++){
+    const d=document.createElement('div');
+    const size=Math.random()*6+3;
+    d.style.cssText=`position:absolute;width:${size}px;height:${size}px;border-radius:50%;background:${colors[Math.floor(Math.random()*colors.length)]};left:${Math.random()*100}%;animation:float-particle ${Math.random()*15+10}s linear ${Math.random()*10}s infinite`;
+    c.appendChild(d);
+  }
+}
+
+// ---- REVEAL ON SCROLL ----
+function initReveal(){
+  const obs=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        // stagger children
+        e.target.querySelectorAll('.feature-card,.menu-preview-card,.review-card,.stat-item').forEach((c,i)=>{
+          setTimeout(()=>c.classList.add('visible'),i*120);
+        });
+      }
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.features-grid,.menu-preview-grid,.reviews-grid,.stats-grid,.feature-card,.menu-preview-card,.review-card,.stat-item').forEach(el=>obs.observe(el));
+}
+
+// ---- COUNTER ANIMATION ----
+function initStats(){
+  const stats=document.querySelectorAll('.stat-number[data-target]');
+  stats.forEach(el=>{
+    const target=parseInt(el.getAttribute('data-target'));
+    const obs=new IntersectionObserver(entries=>{
+      if(entries[0].isIntersecting){
+        let count=0;
+        const step=Math.max(1,Math.floor(target/60));
+        const timer=setInterval(()=>{
+          count=Math.min(count+step,target);
+          el.textContent=target===5?count.toFixed(0):count;
+          if(count>=target){el.textContent=target===5?'4.9':target;clearInterval(timer);}
+        },30);
+        obs.disconnect();
+      }
+    },{threshold:0.5});
+    obs.observe(el);
+  });
+}
+
+// Mobile lang button
+if(window.innerWidth<=768){
+  document.getElementById('lang-toggle-mobile').style.display='inline-block';
+}
+window.addEventListener('resize',()=>{
+  const m=document.getElementById('lang-toggle-mobile');
+  if(m)m.style.display=window.innerWidth<=768?'inline-block':'none';
+});
+
+// GOOEY TEXT MORPHING
+(function initGooey(){
+  const texts=['Heart','of','Styria','Restaurant','&','Bakery'];
+  const morphTime=1.2;
+  const cooldownTime=0.6;
+  let textIndex=texts.length-1;
+  let time=new Date();
+  let morph=0;
+  let cooldown=cooldownTime;
+  const t1=document.getElementById('gooey-text1');
+  const t2=document.getElementById('gooey-text2');
+  if(!t1||!t2)return;
+  function setMorph(fraction){
+    const inv=1-fraction;
+    t2.style.filter=`blur(${Math.min(8/fraction-8,100)}px)`;
+    t2.style.opacity=`${Math.pow(fraction,0.4)*100}%`;
+    t1.style.filter=`blur(${Math.min(8/inv-8,100)}px)`;
+    t1.style.opacity=`${Math.pow(inv,0.4)*100}%`;
+  }
+  function doCooldown(){
+    morph=0;
+    t2.style.filter='';
+    t2.style.opacity='100%';
+    t1.style.filter='';
+    t1.style.opacity='0%';
+  }
+  function doMorph(){
+    morph-=cooldown;
+    cooldown=0;
+    let fraction=morph/morphTime;
+    if(fraction>1){
+      cooldown=cooldownTime;
+      fraction=1;
+    }
+    setMorph(fraction);
+  }
+  function animate(){
+    requestAnimationFrame(animate);
+    const newTime=new Date();
+    const shouldIncrementIndex=cooldown>0;
+    const dt=(newTime.getTime()-time.getTime())/1000;
+    time=newTime;
+    cooldown-=dt;
+    if(cooldown<=0){
+      if(shouldIncrementIndex){
+        textIndex=(textIndex+1)%texts.length;
+        t1.textContent=texts[textIndex%texts.length];
+        t2.textContent=texts[(textIndex+1)%texts.length];
+      }
+      doMorph();
+    }else{
+      doCooldown();
+    }
+  }
+  animate();
+})();
+
+// Init
+initParticles();
+initReveal();
+initStats();
+</script>
+</body>
+</html>
+HTMLEOF
+echo "Done"
+
+Ausgabe
+Command argument is 105_287 bytes, exceeding the 100_000-byte per-argument limit. For large content, pipe via stdin or use a file-write API instead of embedding the content inline in the command. Argument preview: 'cat > /mnt/user-data/outputs/heart_of_styria.html << \'
